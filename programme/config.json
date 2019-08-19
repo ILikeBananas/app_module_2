@@ -1,0 +1,7 @@
+{
+  "host" : "172.16.100.9",
+  "port" : "3305",
+  "database" : "johrbil_chariot",
+  "userName" : "johrbil",
+  "password" : "Admlocal1"
+}
