@@ -1,0 +1,10 @@
+C:\Users\bilal\Documents\ES\Informatique\Module 2\Module 2 - Gestion flexible du chariot\Module 2 - Gestion flexible du chariot\bin\Debug\Module 2 - Gestion flexible du chariot.exe.config
+C:\Users\bilal\Documents\ES\Informatique\Module 2\Module 2 - Gestion flexible du chariot\Module 2 - Gestion flexible du chariot\bin\Debug\Module 2 - Gestion flexible du chariot.exe
+C:\Users\bilal\Documents\ES\Informatique\Module 2\Module 2 - Gestion flexible du chariot\Module 2 - Gestion flexible du chariot\bin\Debug\Module 2 - Gestion flexible du chariot.pdb
+C:\Users\bilal\Documents\ES\Informatique\Module 2\Module 2 - Gestion flexible du chariot\Module 2 - Gestion flexible du chariot\obj\Debug\Module_2___Gestion_flexible_du_chariot.Accueil.resources
+C:\Users\bilal\Documents\ES\Informatique\Module 2\Module 2 - Gestion flexible du chariot\Module 2 - Gestion flexible du chariot\obj\Debug\Module_2___Gestion_flexible_du_chariot.Properties.Resources.resources
+C:\Users\bilal\Documents\ES\Informatique\Module 2\Module 2 - Gestion flexible du chariot\Module 2 - Gestion flexible du chariot\obj\Debug\Module 2 - Gestion flexible du chariot.csproj.GenerateResource.cache
+C:\Users\bilal\Documents\ES\Informatique\Module 2\Module 2 - Gestion flexible du chariot\Module 2 - Gestion flexible du chariot\obj\Debug\Module 2 - Gestion flexible du chariot.csproj.CoreCompileInputs.cache
+C:\Users\bilal\Documents\ES\Informatique\Module 2\Module 2 - Gestion flexible du chariot\Module 2 - Gestion flexible du chariot\obj\Debug\Module 2 - Gestion flexible du chariot.exe
+C:\Users\bilal\Documents\ES\Informatique\Module 2\Module 2 - Gestion flexible du chariot\Module 2 - Gestion flexible du chariot\obj\Debug\Module 2 - Gestion flexible du chariot.pdb
+C:\Users\bilal\Documents\ES\Informatique\Module 2\Module 2 - Gestion flexible du chariot\Module 2 - Gestion flexible du chariot\obj\Debug\Module 2 - Gestion flexible du chariot.csprojAssemblyReference.cache
