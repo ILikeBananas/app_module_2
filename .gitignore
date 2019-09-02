@@ -1,3 +1,6 @@
 .vs/
 programme/Module 2 - Gestion flexible du chariot/bin/
 programme/Module 2 - Gestion flexible du chariot/obj/
+*.tmp
+documentation/~$*
+~$*
