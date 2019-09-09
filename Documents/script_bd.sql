@@ -33,6 +33,17 @@ CREATE TABLE Operation(
 
 
 #------------------------------------------------------------
+# Table: Status
+#------------------------------------------------------------
+
+CREATE TABLE Status(
+        Stu_ID   Int  Auto_increment  NOT NULL ,
+        Stu_Etat Varchar (50) NOT NULL
+	,CONSTRAINT Status_PK PRIMARY KEY (Stu_ID)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
 # Table: Lot
 #------------------------------------------------------------
 
@@ -44,10 +55,12 @@ CREATE TABLE Lot(
         Lot_DateButoir       TimeStamp ,
         Lot_Quantite         Int NOT NULL ,
         Lot_QuantiteAtteinte Int NOT NULL ,
-        Rct_Numero           Int NOT NULL
+        Rct_Numero           Int NOT NULL ,
+        Stu_ID               Int NOT NULL
 	,CONSTRAINT Lot_PK PRIMARY KEY (Lot_Numero)
 
 	,CONSTRAINT Lot_Recette_FK FOREIGN KEY (Rct_Numero) REFERENCES Recette(Rct_Numero)
+	,CONSTRAINT Lot_Status0_FK FOREIGN KEY (Stu_ID) REFERENCES Status(Stu_ID)
 )ENGINE=InnoDB;
 
 
@@ -63,30 +76,5 @@ CREATE TABLE Evenement(
 	,CONSTRAINT Evenement_PK PRIMARY KEY (Eve_ID)
 
 	,CONSTRAINT Evenement_Lot_FK FOREIGN KEY (Lot_Numero) REFERENCES Lot(Lot_Numero)
-)ENGINE=InnoDB;
-
-
-#------------------------------------------------------------
-# Table: Status
-#------------------------------------------------------------
-
-CREATE TABLE Status(
-        Stu_ID   Int  Auto_increment  NOT NULL ,
-        Stu_Etat Int NOT NULL
-	,CONSTRAINT Status_PK PRIMARY KEY (Stu_ID)
-)ENGINE=InnoDB;
-
-
-#------------------------------------------------------------
-# Table: Posseder
-#------------------------------------------------------------
-
-CREATE TABLE Posseder(
-        Stu_ID     Int NOT NULL ,
-        Lot_Numero Int NOT NULL
-	,CONSTRAINT Posseder_PK PRIMARY KEY (Stu_ID,Lot_Numero)
-
-	,CONSTRAINT Posseder_Status_FK FOREIGN KEY (Stu_ID) REFERENCES Status(Stu_ID)
-	,CONSTRAINT Posseder_Lot0_FK FOREIGN KEY (Lot_Numero) REFERENCES Lot(Lot_Numero)
 )ENGINE=InnoDB;
 
