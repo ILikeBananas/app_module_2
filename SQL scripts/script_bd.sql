@@ -54,7 +54,7 @@ CREATE TABLE Lot(
         Lot_DateCreation     TimeStamp NOT NULL ,
         Lot_DateButoir       TimeStamp ,
         Lot_Quantite         Int NOT NULL ,
-        Lot_QuantiteAtteinte Int NOT NULL ,
+        Lot_QuantiteAtteinte Int ,
         Rct_Numero           Int NOT NULL ,
         Stu_ID               Int NOT NULL
 	,CONSTRAINT Lot_PK PRIMARY KEY (Lot_Numero)
