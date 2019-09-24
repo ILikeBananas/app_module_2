@@ -117,6 +117,8 @@
         private System.Windows.Forms.Button AllerEditionRecettes;
         private System.Windows.Forms.Button AllerEvenements;
         private System.Windows.Forms.Label label1;
+
+
     }
 }
 

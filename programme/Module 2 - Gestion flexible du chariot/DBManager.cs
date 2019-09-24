@@ -94,10 +94,6 @@ namespace Module_2___Gestion_flexible_du_chariot
         /// <summary>
         /// Connects to the database
         /// </summary>
-        /// <param name="host">Address to the mysql server</param>
-        /// <param name="databaseName">Name of the database to use for this project</param>
-        /// <param name="userName">Name of the database user</param>
-        /// <param name="password">password for the given user</param>
         public void OpenConnection()
         {
             string connectionString = $"server={Host};" +
@@ -255,6 +251,157 @@ namespace Module_2___Gestion_flexible_du_chariot
             CloseConnection();
 
             return recette;
+        }
+
+        /// <summary>
+        /// Returns the amount of lots
+        /// </summary>
+        /// <returns>Lots count as INT</returns>
+        public int GetLotCount()
+        {
+            string SQLString = "SELECT COUNT(*) FROM lot";
+
+            OpenConnection();
+            MySqlCommand cmd = Conn.CreateCommand();
+            cmd.CommandText = SQLString;
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            int lotCount = int.Parse(reader["COUNT(*)"].ToString());
+
+            return lotCount;
+        }
+
+        /// <summary>
+        /// Returns the amount of evenements
+        /// </summary>
+        /// <returns>evenemets count as int</returns>
+        public int GetEvenementCount()
+        {
+            string SQLString = "SELECT COUNT(*) FROM evenement";
+
+            OpenConnection();
+            MySqlCommand cmd = Conn.CreateCommand();
+            cmd.CommandText = SQLString;
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            int count = int.Parse(reader["COUNT(*)"].ToString());
+
+            return count;
+        }
+
+        /// <summary>
+        /// Returns the amount of status
+        /// </summary>
+        /// <returns>status count as int</returns>
+        public int GetStatusCount()
+        {
+            string SQLString = "SELECT COUNT(*) FROM status";
+
+            OpenConnection();
+            MySqlCommand cmd = Conn.CreateCommand();
+            cmd.CommandText = SQLString;
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            int count = int.Parse(reader["COUNT(*)"].ToString());
+
+            return count;
+        }
+
+        /// <summary>
+        /// Returns the amount of operation
+        /// </summary>
+        /// <returns>operation count as int</returns>
+        public int GetOperationCount()
+        {
+            string SQLString = "SELECT COUNT(*) FROM operation";
+
+            OpenConnection();
+            MySqlCommand cmd = Conn.CreateCommand();
+            cmd.CommandText = SQLString;
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            int count = int.Parse(reader["COUNT(*)"].ToString());
+
+            return count;
+        }
+
+        /// <summary>
+        /// Returns the amount of recette
+        /// </summary>
+        /// <returns>recette count as int</returns>
+        public int GetRecetteCount()
+        {
+            string SQLString = "SELECT COUNT(*) FROM recette";
+
+            OpenConnection();
+            MySqlCommand cmd = Conn.CreateCommand();
+            cmd.CommandText = SQLString;
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            int count = int.Parse(reader["COUNT(*)"].ToString());
+
+            return count;
+        }
+
+        /// <summary>
+        /// Returns all recettes
+        /// </summary>
+        /// <returns>List of recettes</returns>
+        public List<Recette> GetAllRecette()
+        {
+            string SQLString = "SELECT * FROM recette";
+
+            OpenConnection();
+            MySqlCommand cmd = Conn.CreateCommand();
+            cmd.CommandText = SQLString;
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            Recette recette;
+            List<Recette> recettes = new List<Recette>();
+            while (reader.Read())
+            {
+                recette.ID = int.Parse(reader["Rct_Numero"].ToString());
+                recette.Nom = reader["Rct_Nom"].ToString();
+                recettes.Add(recette);
+            }
+
+            return recettes;
+        }
+
+        public List<Operation> GetAllOperByRecID(int recID)
+        {
+            string SQLString = string.Format("SELECT * FROM operation WHERE Rct_Numero = {0}", recID);
+
+            OpenConnection();
+            MySqlCommand cmd = Conn.CreateCommand();
+            cmd.CommandText = SQLString;
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            Operation operation = new Operation();
+            List<Operation> operations = new List<Operation>();
+
+            while (reader.Read())
+            {
+                operation.ID = int.Parse(reader["Opr_ID"].ToString());
+                operation.Numero = int.Parse(reader["Opr_Numero"].ToString());
+                operation.Position = int.Parse(reader["Opr_Position"].ToString());
+                operation.Quittance = bool.Parse(reader["Opr_Quittance"].ToString());
+                operation.RecetteID = int.Parse(reader["Rct_Numero"].ToString());
+                operation.Temps = int.Parse(reader["Opr_Temps"].ToString());
+                operation.RecetteID = int.Parse(reader["Rct_Numero"].ToString());
+
+                operations.Add(operation);
+            }
+
+            return operations;
+
         }
 
     }

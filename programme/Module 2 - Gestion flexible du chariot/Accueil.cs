@@ -24,7 +24,13 @@ namespace Module_2___Gestion_flexible_du_chariot
 
         private void AllerEditionRecettes_Click(object sender, EventArgs e)
         {
-            
+            Form frm = new EditionRecette();
+            frm.Location = this.Location;
+            frm.StartPosition = FormStartPosition.Manual;
+            frm.FormClosing += delegate { this.Show(); };
+            frm.Show();
+            this.Hide();
+
         }
 
         private void AllerEditionLots_Click(object sender, EventArgs e)
