@@ -96,6 +96,7 @@ namespace Module_2___Gestion_flexible_du_chariot
         /// </summary>
         public void OpenConnection()
         {
+            Debug.WriteLine(Caller, "Connecting to database");
             string connectionString = $"server={Host};" +
                                       $"database={DatabaseName};" +
                                       $"Uid={UserName};" +
@@ -218,7 +219,7 @@ namespace Module_2___Gestion_flexible_du_chariot
             operation.Numero = int.Parse(reader["Opr_Numero"].ToString());
             operation.Position = int.Parse(reader["Opr_Position"].ToString());
             operation.Quittance = bool.Parse(reader["Opr_Quittance"].ToString());
-            operation.RecetteID = int.Parse(reader["Rct_Numero"].ToString());
+            operation.Description = reader["Opr_Description"].ToString();
             operation.Temps = int.Parse(reader["Opr_Temps"].ToString());
             operation.RecetteID = int.Parse(reader["Rct_Numero"].ToString());
 
@@ -269,6 +270,8 @@ namespace Module_2___Gestion_flexible_du_chariot
             reader.Read();
             int lotCount = int.Parse(reader["COUNT(*)"].ToString());
 
+            CloseConnection();
+
             return lotCount;
         }
 
@@ -287,6 +290,8 @@ namespace Module_2___Gestion_flexible_du_chariot
             MySqlDataReader reader = cmd.ExecuteReader();
             reader.Read();
             int count = int.Parse(reader["COUNT(*)"].ToString());
+
+            CloseConnection();
 
             return count;
         }
@@ -307,6 +312,8 @@ namespace Module_2___Gestion_flexible_du_chariot
             reader.Read();
             int count = int.Parse(reader["COUNT(*)"].ToString());
 
+            CloseConnection();
+
             return count;
         }
 
@@ -326,6 +333,8 @@ namespace Module_2___Gestion_flexible_du_chariot
             reader.Read();
             int count = int.Parse(reader["COUNT(*)"].ToString());
 
+            CloseConnection();
+
             return count;
         }
 
@@ -344,6 +353,8 @@ namespace Module_2___Gestion_flexible_du_chariot
             MySqlDataReader reader = cmd.ExecuteReader();
             reader.Read();
             int count = int.Parse(reader["COUNT(*)"].ToString());
+
+            CloseConnection();
 
             return count;
         }
@@ -371,6 +382,8 @@ namespace Module_2___Gestion_flexible_du_chariot
                 recettes.Add(recette);
             }
 
+            CloseConnection();
+
             return recettes;
         }
 
@@ -393,12 +406,14 @@ namespace Module_2___Gestion_flexible_du_chariot
                 operation.Numero = int.Parse(reader["Opr_Numero"].ToString());
                 operation.Position = int.Parse(reader["Opr_Position"].ToString());
                 operation.Quittance = bool.Parse(reader["Opr_Quittance"].ToString());
-                operation.RecetteID = int.Parse(reader["Rct_Numero"].ToString());
+                operation.Description = reader["Opr_Description"].ToString();
                 operation.Temps = int.Parse(reader["Opr_Temps"].ToString());
                 operation.RecetteID = int.Parse(reader["Rct_Numero"].ToString());
 
                 operations.Add(operation);
             }
+
+            CloseConnection();
 
             return operations;
 
