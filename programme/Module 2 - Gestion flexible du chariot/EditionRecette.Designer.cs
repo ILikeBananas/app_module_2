@@ -30,6 +30,8 @@
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.Charger = new System.Windows.Forms.Button();
+            this.Sauvegarder = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
@@ -53,11 +55,32 @@
             this.dataGridView2.TabIndex = 1;
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             // 
+            // Charger
+            // 
+            this.Charger.Location = new System.Drawing.Point(12, 414);
+            this.Charger.Name = "Charger";
+            this.Charger.Size = new System.Drawing.Size(80, 25);
+            this.Charger.TabIndex = 2;
+            this.Charger.Text = "Charger";
+            this.Charger.UseVisualStyleBackColor = true;
+            this.Charger.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // Sauvegarder
+            // 
+            this.Sauvegarder.Location = new System.Drawing.Point(98, 414);
+            this.Sauvegarder.Name = "Sauvegarder";
+            this.Sauvegarder.Size = new System.Drawing.Size(80, 25);
+            this.Sauvegarder.TabIndex = 3;
+            this.Sauvegarder.Text = "Sauvegarder";
+            this.Sauvegarder.UseVisualStyleBackColor = true;
+            // 
             // EditionRecette
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.Sauvegarder);
+            this.Controls.Add(this.Charger);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.dataGridView1);
             this.Name = "EditionRecette";
@@ -73,5 +96,7 @@
 
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.Button Charger;
+        private System.Windows.Forms.Button Sauvegarder;
     }
 }
