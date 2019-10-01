@@ -387,6 +387,11 @@ namespace Module_2___Gestion_flexible_du_chariot
             return recettes;
         }
 
+        /// <summary>
+        /// Returns a List of Operations by the given recette ID
+        /// </summary>
+        /// <param name="recID"></param>
+        /// <returns></returns>
         public List<Operation> GetAllOperByRecID(int recID)
         {
             string SQLString = string.Format("SELECT * FROM operation WHERE Rct_Numero = {0}", recID);
@@ -416,6 +421,31 @@ namespace Module_2___Gestion_flexible_du_chariot
             CloseConnection();
 
             return operations;
+        }
+
+        /// <summary>
+        /// Update in the database the operation
+        /// </summary>
+        /// <param name="operation">Operation to update</param>
+        public void UpdateOperation(Operation operation)
+        {
+            OpenConnection();
+
+            // Preparing the statement
+            string SQLString = "UPDATE operation SET Opr_Numero = @val1, Opr_Position = @val2, Opr_Temps = @val3, Opr_Description = @val4, Opr_Quittance = @val5 WHERE Opr_ID = @val6";
+            MySqlCommand cmd = Conn.CreateCommand();
+            cmd.CommandText = SQLString;
+            cmd.Parameters.AddWithValue("@val1", operation.Numero);
+            cmd.Parameters.AddWithValue("@val2", operation.Position);
+            cmd.Parameters.AddWithValue("@val3", operation.Temps);
+            cmd.Parameters.AddWithValue("@val4", operation.Description);
+            cmd.Parameters.AddWithValue("@val5", operation.Quittance);
+            cmd.Parameters.AddWithValue("@val6", operation.ID);
+            cmd.Prepare();
+
+            cmd.ExecuteReader();
+
+            CloseConnection();
 
         }
 

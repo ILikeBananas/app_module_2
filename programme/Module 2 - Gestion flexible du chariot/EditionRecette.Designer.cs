@@ -54,6 +54,7 @@
             this.dataGridView2.Size = new System.Drawing.Size(492, 396);
             this.dataGridView2.TabIndex = 1;
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
+            this.dataGridView2.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellValueChanged);
             // 
             // Charger
             // 
@@ -73,6 +74,7 @@
             this.Sauvegarder.TabIndex = 3;
             this.Sauvegarder.Text = "Sauvegarder";
             this.Sauvegarder.UseVisualStyleBackColor = true;
+            this.Sauvegarder.Click += new System.EventHandler(this.Sauvegarder_Click);
             // 
             // EditionRecette
             // 

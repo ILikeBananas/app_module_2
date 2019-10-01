@@ -11,12 +11,13 @@ using System.Windows.Forms;
 
 namespace Module_2___Gestion_flexible_du_chariot
 {
-    
+
     public partial class EditionRecette : Form
     {
         private List<Recette> ListRecette = new List<Recette>();
         private List<Operation> ListOperation = new List<Operation>();
         private bool UnSavedChanges = false;
+        private List<Operation> ChangedValues = new List<Operation>();
 
 
         public EditionRecette()
@@ -31,10 +32,6 @@ namespace Module_2___Gestion_flexible_du_chariot
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            Debug.WriteLine("cell clicked : column :" + e.ColumnIndex + " row : " + e.RowIndex);
-            
-            Debug.WriteLine("cell " + ListRecette.ElementAt(e.RowIndex).Nom);
-
             
         }
 
@@ -101,11 +98,16 @@ namespace Module_2___Gestion_flexible_du_chariot
             
         }
 
+        /// <summary>
+        /// Click of the "Charger" button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
+            // Verify that only one cell is selected
             if(dataGridView1.SelectedCells.Count > 1)
             {
-                Debug.Write("to long selection");
                 string message = "Veuillez selectionner seulement une case";
                 string caption = "Multiples cellules selectionnées";
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
@@ -115,12 +117,27 @@ namespace Module_2___Gestion_flexible_du_chariot
             {
                 int rowIndex = dataGridView1.SelectedCells[0].RowIndex;
                 int id = ListRecette[rowIndex].ID;
+                bool save = false;
+                bool cancel = false;
 
+                // if unsaved changes exist, asks the user if he wants to save them
                 if (UnSavedChanges)
                 {
-                    // to do popup asking to save
+                    string message = "Il existe des changements non sauvegardés, voulez-vous les sauvegarder?";
+                    string caption = "Sauvegarder?";
+                    MessageBoxButtons buttons = MessageBoxButtons.YesNoCancel;
+                    DialogResult result = MessageBox.Show(message, caption, buttons);
+                    save = result == DialogResult.Yes;
+                    cancel = result == DialogResult.Cancel;
                 }
-                else
+                
+                // When saving is needed
+                if(save) {
+                    SaveChanges();
+                }
+
+                // Charging everything
+                if(!cancel)
                 {
                     ListOperation = Program.manager.GetAllOperByRecID(id);
                     Operation[] operations = ListOperation.ToArray();
@@ -135,15 +152,79 @@ namespace Module_2___Gestion_flexible_du_chariot
                         }
 
                         string[] row = { operations[i].Numero.ToString(),
-                                     operations[i].Position.ToString(),
-                                     operations[i].Temps.ToString(),
-                                     description,
-                                     operations[i].Quittance ? "Avec" : "Sans",
-                                     };
+                                        operations[i].Position.ToString(),
+                                        operations[i].Temps.ToString(),
+                                        description,
+                                        operations[i].Quittance ? "Avec" : "Sans",
+                                        };
 
                         dataGridView2.Rows.Add(row);
                     }
                 }
+            }
+        }
+
+        private void Sauvegarder_Click(object sender, EventArgs e)
+        {
+            Debug.WriteLine("saving....");
+            SaveChanges();
+        }
+
+        /// <summary>
+        /// Called when a cell in the operation datagridview changes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dataGridView2_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            Debug.WriteLine("values changed");
+            UnSavedChanges = true;
+            
+            Operation changedValue = ListOperation[e.RowIndex];
+            string value = dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+            
+            switch(e.ColumnIndex)
+            {
+                case 0:
+                    changedValue.Numero = int.Parse(value);
+                    break;
+
+                case 1:
+                    changedValue.Position = int.Parse(value);
+                    break;
+
+                case 2:
+                    changedValue.Temps = int.Parse(value);
+                    break;
+
+                case 3:
+                    changedValue.Description = value;
+                    break;
+
+                case 4:
+                    changedValue.Quittance = value == "Avec";
+                    break;
+                
+            }
+
+            
+            ChangedValues.Add(changedValue);
+        }
+
+        /// <summary>
+        /// Saves all changes made to the operation datagridview
+        /// </summary>
+        private void SaveChanges()
+        {
+            if(UnSavedChanges)
+            {
+                for(int i = 0; i < ChangedValues.Count; i++)
+                {
+                    Program.manager.UpdateOperation(ChangedValues[i]);
+                }
+
+                UnSavedChanges = false;
+                ChangedValues.Clear();
             }
         }
     }
