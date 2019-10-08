@@ -18,6 +18,7 @@ namespace Module_2___Gestion_flexible_du_chariot
         private List<Operation> ListOperation = new List<Operation>();
         private bool UnSavedChanges = false;
         private List<Operation> ChangedValues = new List<Operation>();
+        private int ActiveRecette = 0;
 
 
         public EditionRecette()
@@ -51,7 +52,8 @@ namespace Module_2___Gestion_flexible_du_chariot
             dataGridView1.Columns[0].Name = "ID";
             dataGridView1.Columns[1].Name = "Nom";
 
-            dataGridView1.ReadOnly = true;
+            dataGridView1.Columns[0].ReadOnly = true;
+
 
             ListRecette = Program.manager.GetAllRecette();
             Recette[] recettes = ListRecette.ToArray();
@@ -91,6 +93,17 @@ namespace Module_2___Gestion_flexible_du_chariot
 
             dataGridView2.Columns[4].Name = "Quittance";
             dataGridView2.Columns[4].Width = 60;
+
+            ChangeActiveRecette(-1);
+        }
+
+        private void dataGridView1_CellValueChanged_1(object sender, DataGridViewCellEventArgs e)
+        {
+            // Verifiy it's not the read only cell
+            if(e.ColumnIndex == 1)
+            {
+                UnSavedChanges = true;
+            }
         }
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -160,6 +173,8 @@ namespace Module_2___Gestion_flexible_du_chariot
 
                         dataGridView2.Rows.Add(row);
                     }
+
+                    ChangeActiveRecette(id);
                 }
             }
         }
@@ -179,8 +194,15 @@ namespace Module_2___Gestion_flexible_du_chariot
         {
             Debug.WriteLine("values changed");
             UnSavedChanges = true;
+            Operation changedValue;
+            if(e.RowIndex < ListOperation.Count)
+            {
+                changedValue = ListOperation[e.RowIndex];
+            } else
+            {
+                changedValue = new Operation();
+            }
             
-            Operation changedValue = ListOperation[e.RowIndex];
             string value = dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
             
             switch(e.ColumnIndex)
@@ -223,9 +245,41 @@ namespace Module_2___Gestion_flexible_du_chariot
                     Program.manager.UpdateOperation(ChangedValues[i]);
                 }
 
+                DataGridViewRow dgvRow;
+                for (int row = 0; row < ListRecette.Count; row++)
+                {
+                    dgvRow = dataGridView1.Rows[row];
+                    if (int.Parse(dgvRow.Cells[0].Value.ToString()) == ActiveRecette && dgvRow.Cells[1].Value.ToString() != ListRecette[ActiveRecette - 1].Nom)
+                    {
+                        Debug.WriteLine("Updating recette name");
+                        Program.manager.UpdateRecetteName(ListRecette[ActiveRecette - 1], dgvRow.Cells[1].Value.ToString());
+                    }
+                }
+                
+
                 UnSavedChanges = false;
                 ChangedValues.Clear();
             }
         }
+
+        /// <summary>
+        /// Changes the active recette and sets all other recettes to read only
+        /// </summary>
+        /// <param name="id"></param>
+        private void ChangeActiveRecette(int id)
+        {
+            for(int row = 0; row < ListRecette.Count; row++)
+            {
+                if(int.Parse(dataGridView1.Rows[row].Cells[0].Value.ToString()) != id)
+                {
+                    dataGridView1.Rows[row].Cells[1].ReadOnly = true;
+                } else
+                {
+                    dataGridView1.Rows[row].Cells[1].ReadOnly = false;
+                }
+            }
+            ActiveRecette = id;
+        }
+
     }
 }

@@ -449,5 +449,24 @@ namespace Module_2___Gestion_flexible_du_chariot
 
         }
 
+        public void UpdateRecetteName(Recette recette, string name)
+        {
+            OpenConnection();
+
+            // Preparing the statement
+            string SQLString = "UPDATE recette SET Rct_Nom = @val1 WHERE Rct_Numero = @val2";
+            MySqlCommand cmd = Conn.CreateCommand();
+            cmd.CommandText = SQLString;
+            cmd.Parameters.AddWithValue("@val1", name);
+            cmd.Parameters.AddWithValue("@val2", recette.ID);
+            cmd.Prepare();
+
+            cmd.ExecuteReader();
+
+            CloseConnection();
+
+
+        }
+
     }
 }
