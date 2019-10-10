@@ -427,12 +427,26 @@ namespace Module_2___Gestion_flexible_du_chariot
         /// Update in the database the operation
         /// </summary>
         /// <param name="operation">Operation to update</param>
+        /// <param name="ListOperation">Old operation list</param>
         public void UpdateOperation(Operation operation)
         {
-            OpenConnection();
+            
+            bool operationExists = operation.ID != 0;
 
+            OpenConnection();
             // Preparing the statement
-            string SQLString = "UPDATE operation SET Opr_Numero = @val1, Opr_Position = @val2, Opr_Temps = @val3, Opr_Description = @val4, Opr_Quittance = @val5 WHERE Opr_ID = @val6";
+            string SQLString = "";
+
+            if (operationExists)
+            {
+                SQLString = "UPDATE operation SET Opr_Numero = @val1, Opr_Position = @val2, Opr_Temps = @val3, Opr_Description = @val4, Opr_Quittance = @val5 WHERE Opr_ID = @val6";
+            } else
+            {
+                SQLString = "INSERT INTO operation (Opr_Numero, Opr_Position, Opr_Temps, Opr_Description, Opr_Quittance, RCT_Numero) VALUES (@val1, @val2, @val3, @val4, @val5, @val7)";
+            }
+            
+            
+            
             MySqlCommand cmd = Conn.CreateCommand();
             cmd.CommandText = SQLString;
             cmd.Parameters.AddWithValue("@val1", operation.Numero);
@@ -440,7 +454,17 @@ namespace Module_2___Gestion_flexible_du_chariot
             cmd.Parameters.AddWithValue("@val3", operation.Temps);
             cmd.Parameters.AddWithValue("@val4", operation.Description);
             cmd.Parameters.AddWithValue("@val5", operation.Quittance);
-            cmd.Parameters.AddWithValue("@val6", operation.ID);
+
+            // This value only exists if it's not a new operation
+            if (operationExists)
+            {
+                cmd.Parameters.AddWithValue("@val6", operation.ID);
+            } else
+            {
+                // if the operation doesnt exist, @val7 contains the RCT_Numero
+                cmd.Parameters.AddWithValue("@val7", operation.RecetteID);
+            }
+            
             cmd.Prepare();
 
             cmd.ExecuteReader();

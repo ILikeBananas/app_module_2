@@ -11,6 +11,11 @@ using System.Windows.Forms;
 
 namespace Module_2___Gestion_flexible_du_chariot
 {
+    public struct NewValue
+    {
+        public int RowIndex;
+        public int ChangedValueIndex;
+    }
 
     public partial class EditionRecette : Form
     {
@@ -18,6 +23,7 @@ namespace Module_2___Gestion_flexible_du_chariot
         private List<Operation> ListOperation = new List<Operation>();
         private bool UnSavedChanges = false;
         private List<Operation> ChangedValues = new List<Operation>();
+        private List<NewValue> NewValues = new List<NewValue>();
         private int ActiveRecette = 0;
 
 
@@ -194,15 +200,44 @@ namespace Module_2___Gestion_flexible_du_chariot
         {
             Debug.WriteLine("values changed");
             UnSavedChanges = true;
-            Operation changedValue;
-            if(e.RowIndex < ListOperation.Count)
+            Operation changedValue = new Operation();
+            bool isNewValue = true;
+            int index = 0;
+
+            // If it's an already existing operation, load the existing operation in changedValue
+            if (e.RowIndex + 1 < ListOperation.Count)
             {
                 changedValue = ListOperation[e.RowIndex];
             } else
             {
-                changedValue = new Operation();
+                if (ChangedValues.Count != 0) 
+                {
+                    if (NewValues.Count != 0) // If no new values exist already, no need to verify
+                    {
+                        // Verify if this value already exists in NewValues
+                        do
+                        {
+                            if (NewValues[index].RowIndex == e.RowIndex)
+                            {
+                                isNewValue = false;
+                            }
+                            index++;
+                        } while (isNewValue);
+                    }
+                    // If it's a new value, it has no recette id yet, change it to the active recette
+                    if (isNewValue)
+                    {
+                        changedValue.RecetteID = ActiveRecette;
+                    }
+                    else
+                    {
+                        changedValue = ChangedValues[NewValues[index - 1].ChangedValueIndex];
+                    }
+                }
+
             }
             
+            // This is the new value entered in the cell
             string value = dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
             
             switch(e.ColumnIndex)
@@ -229,8 +264,19 @@ namespace Module_2___Gestion_flexible_du_chariot
                 
             }
 
+            if(isNewValue)
+            {
+                changedValue.RecetteID = ActiveRecette;
+                ChangedValues.Add(changedValue);
+                NewValue newValue = new NewValue();
+                newValue.RowIndex = e.RowIndex;
+                newValue.ChangedValueIndex = ChangedValues.Count() - 1;
+                NewValues.Add(newValue);
+            } else
+            {
+                ChangedValues[NewValues[index - 1].ChangedValueIndex] = changedValue;
+            }
             
-            ChangedValues.Add(changedValue);
         }
 
         /// <summary>

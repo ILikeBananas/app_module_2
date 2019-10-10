@@ -25,18 +25,9 @@ namespace Module_2___Gestion_flexible_du_chariot
             string userName = "root";
             string password = "";
 
-            // Testes BD
+            // Creates the manager
             manager = new DBManager(host, databaseName, userName, password);
-            Lot lot = manager.GetLotByID(2);
-            Operation operation = manager.GetOperationByID(1);
-            Evenement evenement = manager.GetEvenementByID(1);
-            Status status = manager.GetStatusByID(1);
-            Recette recette = manager.GetRecetteByID(1);
 
-            Debug.WriteLine(lot.Nom + "" + operation.Description + " " + evenement.Nom + " " + status.Etat + " " + recette.Nom);
-
-
-            Debug.WriteLine(lot.Nom, "DBManager");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Accueil());
