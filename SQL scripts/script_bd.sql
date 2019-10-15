@@ -51,8 +51,8 @@ CREATE TABLE Lot(
         Lot_Numero           Int  Auto_increment  NOT NULL ,
         Lot_Nom              Varchar (30) ,
         Lot_NumeroRecette    Int NOT NULL ,
-        Lot_DateCreation     TimeStamp NOT NULL ,
-        Lot_DateButoir       TimeStamp ,
+        Lot_DateCreation     Datetime NOT NULL ,
+        Lot_DateButoir       Datetime ,
         Lot_Quantite         Int NOT NULL ,
         Lot_QuantiteAtteinte Int ,
         Rct_Numero           Int NOT NULL ,
@@ -70,7 +70,7 @@ CREATE TABLE Lot(
 
 CREATE TABLE Evenement(
         Eve_ID      Int  Auto_increment  NOT NULL ,
-        Eve_Date    TimeStamp NOT NULL ,
+        Eve_Date    Datetime NOT NULL ,
         Eve_Message Varchar (50) ,
         Lot_Numero  Int NOT NULL
 	,CONSTRAINT Evenement_PK PRIMARY KEY (Eve_ID)
