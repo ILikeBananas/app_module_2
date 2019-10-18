@@ -50,7 +50,6 @@ CREATE TABLE Status(
 CREATE TABLE Lot(
         Lot_Numero           Int  Auto_increment  NOT NULL ,
         Lot_Nom              Varchar (30) ,
-        Lot_NumeroRecette    Int NOT NULL ,
         Lot_DateCreation     Datetime NOT NULL ,
         Lot_DateButoir       Datetime ,
         Lot_Quantite         Int NOT NULL ,
