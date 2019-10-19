@@ -37,9 +37,10 @@
             // 
             // AllerTracabiliteLots
             // 
-            this.AllerTracabiliteLots.Location = new System.Drawing.Point(527, 470);
+            this.AllerTracabiliteLots.Location = new System.Drawing.Point(351, 305);
+            this.AllerTracabiliteLots.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.AllerTracabiliteLots.Name = "AllerTracabiliteLots";
-            this.AllerTracabiliteLots.Size = new System.Drawing.Size(420, 65);
+            this.AllerTracabiliteLots.Size = new System.Drawing.Size(280, 42);
             this.AllerTracabiliteLots.TabIndex = 0;
             this.AllerTracabiliteLots.Text = "Traçabilité des lots";
             this.AllerTracabiliteLots.UseVisualStyleBackColor = true;
@@ -48,9 +49,10 @@
             // 
             // AllerEditionLots
             // 
-            this.AllerEditionLots.Location = new System.Drawing.Point(527, 353);
+            this.AllerEditionLots.Location = new System.Drawing.Point(351, 229);
+            this.AllerEditionLots.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.AllerEditionLots.Name = "AllerEditionLots";
-            this.AllerEditionLots.Size = new System.Drawing.Size(420, 65);
+            this.AllerEditionLots.Size = new System.Drawing.Size(280, 42);
             this.AllerEditionLots.TabIndex = 1;
             this.AllerEditionLots.Text = "Edition de lots";
             this.AllerEditionLots.UseVisualStyleBackColor = true;
@@ -59,9 +61,10 @@
             // 
             // AllerEditionRecettes
             // 
-            this.AllerEditionRecettes.Location = new System.Drawing.Point(527, 237);
+            this.AllerEditionRecettes.Location = new System.Drawing.Point(351, 154);
+            this.AllerEditionRecettes.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.AllerEditionRecettes.Name = "AllerEditionRecettes";
-            this.AllerEditionRecettes.Size = new System.Drawing.Size(420, 65);
+            this.AllerEditionRecettes.Size = new System.Drawing.Size(280, 42);
             this.AllerEditionRecettes.TabIndex = 2;
             this.AllerEditionRecettes.Text = "Edition de recettes";
             this.AllerEditionRecettes.UseVisualStyleBackColor = true;
@@ -72,9 +75,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(241, 80);
+            this.label1.Location = new System.Drawing.Point(161, 52);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(991, 64);
+            this.label1.Size = new System.Drawing.Size(686, 44);
             this.label1.TabIndex = 3;
             this.label1.Text = "Module 2 - Gestion flexible du chariot";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -82,9 +86,10 @@
             // 
             // AllerEvenements
             // 
-            this.AllerEvenements.Location = new System.Drawing.Point(527, 590);
+            this.AllerEvenements.Location = new System.Drawing.Point(351, 383);
+            this.AllerEvenements.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.AllerEvenements.Name = "AllerEvenements";
-            this.AllerEvenements.Size = new System.Drawing.Size(420, 65);
+            this.AllerEvenements.Size = new System.Drawing.Size(280, 42);
             this.AllerEvenements.TabIndex = 4;
             this.AllerEvenements.Text = "Evénements";
             this.AllerEvenements.UseVisualStyleBackColor = true;
@@ -93,14 +98,15 @@
             // 
             // Accueil
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1501, 761);
+            this.ClientSize = new System.Drawing.Size(1001, 495);
             this.Controls.Add(this.AllerEvenements);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.AllerEditionRecettes);
             this.Controls.Add(this.AllerEditionLots);
             this.Controls.Add(this.AllerTracabiliteLots);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Accueil";
             this.Text = "Accueil";
             this.UseWaitCursor = true;

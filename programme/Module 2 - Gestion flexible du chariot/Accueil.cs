@@ -35,7 +35,12 @@ namespace Module_2___Gestion_flexible_du_chariot
 
         private void AllerEditionLots_Click(object sender, EventArgs e)
         {
-
+            Form frm = new EditionLots();
+            frm.Location = this.Location;
+            frm.StartPosition = FormStartPosition.Manual;
+            frm.FormClosing += delegate { this.Show(); };
+            frm.Show();
+            this.Hide();
         }
 
         private void AllerTracabiliteLots_Click(object sender, EventArgs e)

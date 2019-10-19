@@ -15,7 +15,6 @@ namespace Module_2___Gestion_flexible_du_chariot
     {
         public int ID;
         public string Nom;
-        public int NumeroRecette;
         public DateTime DateCreation;
         public DateTime DateButoir;
         public int Quantite;
@@ -134,7 +133,6 @@ namespace Module_2___Gestion_flexible_du_chariot
             Lot lot = new Lot();
             lot.ID = int.Parse(reader["Lot_Numero"].ToString());
             lot.Nom = reader["Lot_Nom"].ToString();
-            lot.NumeroRecette = int.Parse(reader["Lot_NumeroRecette"].ToString());
             lot.DateCreation = DateTime.Parse(reader["Lot_DateCreation"].ToString());
             DateTime.TryParse(reader["Lot_DateButoir"].ToString(), out lot.DateButoir); // This one is by TryParse() because it can be empty
             lot.Quantite = int.Parse(reader["Lot_Quantite"].ToString());
@@ -473,6 +471,11 @@ namespace Module_2___Gestion_flexible_du_chariot
 
         }
 
+        /// <summary>
+        /// Updates the name of the recette
+        /// </summary>
+        /// <param name="recette">The recette to change</param>
+        /// <param name="name">New name for the recette</param>
         public void UpdateRecetteName(Recette recette, string name)
         {
             OpenConnection();
@@ -488,8 +491,34 @@ namespace Module_2___Gestion_flexible_du_chariot
             cmd.ExecuteReader();
 
             CloseConnection();
+        }
 
+        public void CreateLot(Lot lot)
+        {
+            OpenConnection();
 
+            // Preparing the statement
+            string SQLString = "INSERT INTO lot (Lot_Nom, Lot_DateCreation, Lot_DateButoir, Lot_Quantite, Lot_QuantiteAtteinte, Rct_Numero, Stu_ID) " +
+                               "VALUES (@Lot_Nom, @Lot_DateCreation, @Lot_DateButoir, @Lot_Quantite, @Lot_QuantiteAtteinte, @Rct_Numero, @Stu_ID)";
+            MySqlCommand cmd = Conn.CreateCommand();
+            cmd.CommandText = SQLString;
+
+            // Transform the dates into a mysql DateTime compatible string
+            string dateNow = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            string dateButoir = lot.DateButoir.ToString("yyyy-MM-dd HH:mm:ss");
+
+            cmd.Parameters.AddWithValue("@Lot_Nom", lot.Nom);
+            cmd.Parameters.AddWithValue("@Lot_DateCreation", dateNow);
+            cmd.Parameters.AddWithValue("@Lot_DateButoir", dateButoir);
+            cmd.Parameters.AddWithValue("@Lot_Quantite", lot.Quantite);
+            cmd.Parameters.AddWithValue("@Lot_QuantiteAtteinte", 0);
+            cmd.Parameters.AddWithValue("@Rct_Numero", lot.RecetteID);
+            cmd.Parameters.AddWithValue("@Stu_ID", 2); // ID en attente
+
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            CloseConnection();
         }
 
     }
