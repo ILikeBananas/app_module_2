@@ -101,6 +101,9 @@ namespace Module_2___Gestion_flexible_du_chariot
             dataGridView2.Columns[4].Width = 60;
 
             ChangeActiveRecette(-1);
+
+            // Blocks the addition of a row by an user directly in the datagrid, the user has to use the button to add a new row
+            dataGridView1.AllowUserToAddRows = false;
         }
 
         private void dataGridView1_CellValueChanged_1(object sender, DataGridViewCellEventArgs e)
@@ -327,5 +330,28 @@ namespace Module_2___Gestion_flexible_du_chariot
             ActiveRecette = id;
         }
 
+        /// <summary>
+        /// Adds a new Recette
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NewRecette_Click(object sender, EventArgs e) {
+
+            // Create a new recette to use it later
+            int newIndex = ListRecette.Last().ID + 1;
+            Recette recette = new Recette();
+            recette.ID = newIndex;
+            recette.Nom = "Nouvelle recette";
+            dataGridView1.Rows.Add(recette.ID, recette.Nom);
+
+            // Adds the recette to the database and the recette list
+            Program.manager.CreateRecette(recette);
+            ListRecette.Add(recette);
+
+            // Directly use the new recette as the active one
+            ChangeActiveRecette(recette.ID);
+
+
+        }
     }
 }

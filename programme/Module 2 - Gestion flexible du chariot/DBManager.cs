@@ -493,6 +493,10 @@ namespace Module_2___Gestion_flexible_du_chariot
             CloseConnection();
         }
 
+        /// <summary>
+        /// Creates a new lot in the database
+        /// </summary>
+        /// <param name="lot">The lot to add</param>
         public void CreateLot(Lot lot)
         {
             OpenConnection();
@@ -514,6 +518,26 @@ namespace Module_2___Gestion_flexible_du_chariot
             cmd.Parameters.AddWithValue("@Lot_QuantiteAtteinte", 0);
             cmd.Parameters.AddWithValue("@Rct_Numero", lot.RecetteID);
             cmd.Parameters.AddWithValue("@Stu_ID", 2); // ID en attente
+
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            CloseConnection();
+        }
+
+        /// <summary>
+        /// Creates a new recette in the database
+        /// </summary>
+        /// <param name="recette">Recette to add</param>
+        public void CreateRecette(Recette recette) {
+            OpenConnection();
+
+            // Preparing the statement
+            string SQLString = "INSERT INTO recette (Rct_Nom) VALUES (@Rct_Nom)";
+            MySqlCommand cmd = Conn.CreateCommand();
+            cmd.CommandText = SQLString;
+
+            cmd.Parameters.AddWithValue("@Rct_Nom", recette.Nom);
 
             cmd.Prepare();
             cmd.ExecuteNonQuery();

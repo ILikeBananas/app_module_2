@@ -54,6 +54,12 @@
       <DependentUpon>Accueil.cs</DependentUpon>
     </Compile>
     <Compile Include="DBManager.cs" />
+    <Compile Include="EditionLots.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditionLots.Designer.cs">
+      <DependentUpon>EditionLots.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditionRecette.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -64,6 +70,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Accueil.resx">
       <DependentUpon>Accueil.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditionLots.resx">
+      <DependentUpon>EditionLots.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditionRecette.resx">
       <DependentUpon>EditionRecette.cs</DependentUpon>

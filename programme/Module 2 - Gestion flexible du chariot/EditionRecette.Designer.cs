@@ -32,6 +32,7 @@
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.Charger = new System.Windows.Forms.Button();
             this.Sauvegarder = new System.Windows.Forms.Button();
+            this.NewRecette = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
@@ -77,11 +78,22 @@
             this.Sauvegarder.UseVisualStyleBackColor = true;
             this.Sauvegarder.Click += new System.EventHandler(this.Sauvegarder_Click);
             // 
+            // NewRecette
+            // 
+            this.NewRecette.Location = new System.Drawing.Point(192, 414);
+            this.NewRecette.Name = "NewRecette";
+            this.NewRecette.Size = new System.Drawing.Size(99, 24);
+            this.NewRecette.TabIndex = 4;
+            this.NewRecette.Text = "Nouvelle Recette";
+            this.NewRecette.UseVisualStyleBackColor = true;
+            this.NewRecette.Click += new System.EventHandler(this.NewRecette_Click);
+            // 
             // EditionRecette
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.NewRecette);
             this.Controls.Add(this.Sauvegarder);
             this.Controls.Add(this.Charger);
             this.Controls.Add(this.dataGridView2);
@@ -101,5 +113,6 @@
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.Button Charger;
         private System.Windows.Forms.Button Sauvegarder;
+        private System.Windows.Forms.Button NewRecette;
     }
 }
