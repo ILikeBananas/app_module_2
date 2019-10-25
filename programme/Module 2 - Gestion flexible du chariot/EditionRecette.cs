@@ -185,9 +185,19 @@ namespace Module_2___Gestion_flexible_du_chariot
 
                     ChangeActiveRecette(id);
                 }
+
+                // If the recette is in use, block all modifications
+                Recette recette = new Recette();
+                recette.ID = id;
+                dataGridView2.ReadOnly = Program.manager.IsRecetteInUse(recette);
             }
         }
 
+        /// <summary>
+        /// Save changes event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Sauvegarder_Click(object sender, EventArgs e)
         {
             Debug.WriteLine("saving....");

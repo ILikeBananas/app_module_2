@@ -545,5 +545,30 @@ namespace Module_2___Gestion_flexible_du_chariot
             CloseConnection();
         }
 
+        /// <summary>
+        /// Verifies in the database if the given Recette is in use in an already started lot
+        /// </summary>
+        /// <param name="recette"></param>
+        /// <returns></returns>
+        public bool IsRecetteInUse(Recette recette) {
+            bool isInUse = false;
+            OpenConnection();
+
+            string SQLString = "SELECT Count(*) FROM `lot` WHERE Stu_ID != 1 AND Lot_Numero = @Lot_Numero";
+            MySqlCommand cmd = Conn.CreateCommand();
+            cmd.CommandText = SQLString;
+
+            cmd.Parameters.AddWithValue("@Lot_Numero", recette.ID);
+
+            cmd.Prepare();
+            MySqlDataReader reader = cmd.ExecuteReader();
+            
+            if(reader.Read()) {
+                isInUse = reader["Count(*)"].ToString() != "0";
+            }
+
+            return isInUse;
+        }
+
     }
 }
