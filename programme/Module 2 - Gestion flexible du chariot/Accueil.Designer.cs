@@ -37,20 +37,20 @@
             // 
             // AllerTracabiliteLots
             // 
+            this.AllerTracabiliteLots.CausesValidation = false;
             this.AllerTracabiliteLots.Location = new System.Drawing.Point(351, 305);
-            this.AllerTracabiliteLots.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.AllerTracabiliteLots.Margin = new System.Windows.Forms.Padding(2);
             this.AllerTracabiliteLots.Name = "AllerTracabiliteLots";
             this.AllerTracabiliteLots.Size = new System.Drawing.Size(280, 42);
             this.AllerTracabiliteLots.TabIndex = 0;
             this.AllerTracabiliteLots.Text = "Traçabilité des lots";
             this.AllerTracabiliteLots.UseVisualStyleBackColor = true;
-            this.AllerTracabiliteLots.UseWaitCursor = true;
             this.AllerTracabiliteLots.Click += new System.EventHandler(this.AllerTracabiliteLots_Click);
             // 
             // AllerEditionLots
             // 
             this.AllerEditionLots.Location = new System.Drawing.Point(351, 229);
-            this.AllerEditionLots.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.AllerEditionLots.Margin = new System.Windows.Forms.Padding(2);
             this.AllerEditionLots.Name = "AllerEditionLots";
             this.AllerEditionLots.Size = new System.Drawing.Size(280, 42);
             this.AllerEditionLots.TabIndex = 1;
@@ -62,13 +62,12 @@
             // AllerEditionRecettes
             // 
             this.AllerEditionRecettes.Location = new System.Drawing.Point(351, 154);
-            this.AllerEditionRecettes.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.AllerEditionRecettes.Margin = new System.Windows.Forms.Padding(2);
             this.AllerEditionRecettes.Name = "AllerEditionRecettes";
             this.AllerEditionRecettes.Size = new System.Drawing.Size(280, 42);
             this.AllerEditionRecettes.TabIndex = 2;
             this.AllerEditionRecettes.Text = "Edition de recettes";
             this.AllerEditionRecettes.UseVisualStyleBackColor = true;
-            this.AllerEditionRecettes.UseWaitCursor = true;
             this.AllerEditionRecettes.Click += new System.EventHandler(this.AllerEditionRecettes_Click);
             // 
             // label1
@@ -87,7 +86,7 @@
             // AllerEvenements
             // 
             this.AllerEvenements.Location = new System.Drawing.Point(351, 383);
-            this.AllerEvenements.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.AllerEvenements.Margin = new System.Windows.Forms.Padding(2);
             this.AllerEvenements.Name = "AllerEvenements";
             this.AllerEvenements.Size = new System.Drawing.Size(280, 42);
             this.AllerEvenements.TabIndex = 4;
@@ -106,10 +105,10 @@
             this.Controls.Add(this.AllerEditionRecettes);
             this.Controls.Add(this.AllerEditionLots);
             this.Controls.Add(this.AllerTracabiliteLots);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Accueil";
             this.Text = "Accueil";
-            this.UseWaitCursor = true;
             this.Load += new System.EventHandler(this.Accueil_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -35,7 +35,7 @@ namespace Module_2___Gestion_flexible_du_chariot
 
         private void AllerTracabiliteLots_Click(object sender, EventArgs e)
         {
-            
+            GoToForm(new Tracabilite());
         }
 
         private void AllerEvenements_Click(object sender, EventArgs e)
