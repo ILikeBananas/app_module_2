@@ -19,7 +19,7 @@ namespace Module_2___Gestion_flexible_du_chariot
         [STAThread]
         static void Main()
         {
-
+            // Database connection infos
             string host = "localhost";
             string databaseName = "johrbil_chariot";
             string userName = "root";
@@ -28,14 +28,10 @@ namespace Module_2___Gestion_flexible_du_chariot
             // Creates the manager
             manager = new DBManager(host, databaseName, userName, password);
 
+            // Interface
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Accueil());
-
-
-            //OdbcConnection odb = new OdbcConnection( return { MySQL ODBC 5.1 Driver }; Server = "localost"; Database = "test"; uid = root; pwd = ""; Option = 3;);
-                
+            Application.Run(new Accueil());   
         }
-
     }
 }
