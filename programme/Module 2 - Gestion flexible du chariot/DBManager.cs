@@ -53,6 +53,27 @@ namespace Module_2___Gestion_flexible_du_chariot
         public string Nom;
     }
 
+    public enum StateFilterOptions {
+        all,
+        finished,
+        waiting,
+        inProduction
+    }
+
+    public enum DateFilterOptions {
+        dateCreation,
+        dateButoir
+    }
+    public struct LotFilterParameters {
+        public bool UseDateFilter;
+        public DateTime Start;
+        public DateTime End;
+        public DateFilterOptions DateFilterOptions;
+        public StateFilterOptions StateFilter;
+    }
+
+
+
 
         
     class DBManager
@@ -568,6 +589,81 @@ namespace Module_2___Gestion_flexible_du_chariot
             }
 
             return isInUse;
+        }
+
+        /// <summary>
+        /// Get all lots with the given filters
+        /// </summary>
+        /// <param name="filterParameters">(see struct) all parameters to apply on the query</param>
+        public List<Lot> GetFilteredLots(LotFilterParameters filterParameters) {
+            OpenConnection();
+
+            string SQLString = "SELECT * FROM lot WHERE "; // String used to compose the SQL command
+            string dateStart = "";
+            string dateEnd = "";
+
+            // If date filters are used, add them to the command
+            if(filterParameters.UseDateFilter) {
+                string column = "";
+                if(filterParameters.DateFilterOptions == DateFilterOptions.dateButoir) {
+                    column = "Lot_DateButoir";
+                } else {
+                    column = "Lot_DateCreation";
+                }
+                SQLString += column + " > @DateStart AND " + column + " < @DateEnd AND ";
+
+                dateStart = filterParameters.Start.ToString("yyyy-MM-dd HH:mm:ss");
+                dateEnd = filterParameters.End.ToString("yyyy-MM-dd HH:mm:ss");
+            }
+
+            // Add the state filters to the command
+            switch(filterParameters.StateFilter) {
+                case StateFilterOptions.all:
+                    SQLString += "1 = 1";
+                    break;
+
+                case StateFilterOptions.finished:
+                    SQLString += "Stu_ID = 1";
+                    break;
+
+                case StateFilterOptions.inProduction:
+                    SQLString += "Stu_ID = 2";
+                    break;
+
+                case StateFilterOptions.waiting:
+                    SQLString += "Stu_ID = 3";
+                    break;
+            }
+
+            MySqlCommand cmd = Conn.CreateCommand();
+            cmd.CommandText = SQLString;
+
+            // If date filters are used, add the parameters with values
+            if(filterParameters.UseDateFilter) {
+                cmd.Parameters.AddWithValue("@DateStart", dateStart);
+                cmd.Parameters.AddWithValue("@DateEnd", dateEnd);
+            }
+
+            cmd.Prepare();
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+            List<Lot> lots = new List<Lot>();
+            Lot lot = new Lot();
+            while(reader.Read()) {
+                lot.ID = int.Parse(reader["Lot_Numero"].ToString());
+                lot.Nom = reader["Lot_Nom"].ToString();
+                lot.DateCreation = DateTime.Parse(reader["Lot_DateCreation"].ToString());
+                DateTime.TryParse(reader["Lot_DateButoir"].ToString(), out lot.DateButoir); // This one is by TryParse() because it can be empty
+                lot.Quantite = int.Parse(reader["Lot_Quantite"].ToString());
+                lot.QuantiteAtteinte = int.Parse(reader["Lot_QuantiteAtteinte"].ToString());
+                lot.RecetteID = int.Parse(reader["Rct_Numero"].ToString());
+                lot.StatusID = int.Parse(reader["Stu_ID"].ToString());
+
+                lots.Add(lot);
+            }
+
+            CloseConnection();
+            return lots;
         }
 
     }
