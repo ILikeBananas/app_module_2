@@ -558,7 +558,8 @@ namespace Module_2___Gestion_flexible_du_chariot
         /// Creates a new recette in the database
         /// </summary>
         /// <param name="recette">Recette to add</param>
-        public void CreateRecette(Recette recette) {
+        public void CreateRecette(Recette recette)
+        {
             OpenConnection();
 
             // Preparing the statement
@@ -579,7 +580,8 @@ namespace Module_2___Gestion_flexible_du_chariot
         /// </summary>
         /// <param name="recette"></param>
         /// <returns></returns>
-        public bool IsRecetteInUse(Recette recette) {
+        public bool IsRecetteInUse(Recette recette)
+        {
             bool isInUse = false;
             OpenConnection();
 
@@ -604,7 +606,8 @@ namespace Module_2___Gestion_flexible_du_chariot
         /// Get all lots with the given filters
         /// </summary>
         /// <param name="filterParameters">(see struct) all parameters to apply on the query</param>
-        public List<Lot> GetFilteredLots(LotFilterParameters filterParameters) {
+        public List<Lot> GetFilteredLots(LotFilterParameters filterParameters)
+        {
             OpenConnection();
 
             string SQLString = "SELECT * FROM lot WHERE "; // String used to compose the SQL command
@@ -614,9 +617,11 @@ namespace Module_2___Gestion_flexible_du_chariot
             // If date filters are used, add them to the command
             if(filterParameters.UseDateFilter) {
                 string column = "";
-                if(filterParameters.DateFilterOptions == DateFilterOptions.dateButoir) {
+                if(filterParameters.DateFilterOptions == DateFilterOptions.dateButoir)
+                {
                     column = "Lot_DateButoir";
-                } else {
+                } else
+                {
                     column = "Lot_DateCreation";
                 }
                 SQLString += column + " > @DateStart AND " + column + " < @DateEnd AND ";
@@ -648,7 +653,8 @@ namespace Module_2___Gestion_flexible_du_chariot
             cmd.CommandText = SQLString;
 
             // If date filters are used, add the parameters with values
-            if(filterParameters.UseDateFilter) {
+            if(filterParameters.UseDateFilter)
+            {
                 cmd.Parameters.AddWithValue("@DateStart", dateStart);
                 cmd.Parameters.AddWithValue("@DateEnd", dateEnd);
             }
@@ -658,7 +664,8 @@ namespace Module_2___Gestion_flexible_du_chariot
             MySqlDataReader reader = cmd.ExecuteReader();
             List<Lot> lots = new List<Lot>();
             Lot lot = new Lot();
-            while(reader.Read()) {
+            while(reader.Read())
+            {
                 lot.ID = int.Parse(reader["Lot_Numero"].ToString());
                 lot.Nom = reader["Lot_Nom"].ToString();
                 lot.DateCreation = DateTime.Parse(reader["Lot_DateCreation"].ToString());
@@ -675,7 +682,8 @@ namespace Module_2___Gestion_flexible_du_chariot
             return lots;
         }
 
-        public List<Evenement> GetFilteredLots(EventFilterParameters filterParameters) {
+        public List<Evenement> GetFilteredLots(EventFilterParameters filterParameters)
+        {
             OpenConnection();
             List<Evenement> evenements = new List<Evenement>();
 

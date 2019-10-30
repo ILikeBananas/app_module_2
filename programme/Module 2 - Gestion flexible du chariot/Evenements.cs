@@ -14,7 +14,16 @@ namespace Module_2___Gestion_flexible_du_chariot {
             InitializeComponent();
         }
 
-        public void UpdateEventGrid() {
+        /// <summary>
+        /// Updates the grid containing the events 
+        /// </summary>
+        public void UpdateEventGrid()
+        {
+
+        }
+
+        public void SetupEventGrid()
+        {
 
         }
     }
