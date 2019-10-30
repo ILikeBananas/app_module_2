@@ -72,6 +72,14 @@ namespace Module_2___Gestion_flexible_du_chariot
         public StateFilterOptions StateFilter;
     }
 
+    public struct EventFilterParameters {
+        public bool UseDateFilter;
+        public DateTime Start;
+        public DateTime end;
+        public bool UseLotFilter;
+        public int LotID;
+    }
+
 
 
 
@@ -665,6 +673,15 @@ namespace Module_2___Gestion_flexible_du_chariot
 
             CloseConnection();
             return lots;
+        }
+
+        public List<Evenement> GetFilteredLots(EventFilterParameters filterParameters) {
+            OpenConnection();
+            List<Evenement> evenements = new List<Evenement>();
+
+
+
+            return evenements;
         }
 
     }
