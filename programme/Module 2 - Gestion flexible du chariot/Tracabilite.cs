@@ -14,6 +14,11 @@ namespace Module_2___Gestion_flexible_du_chariot {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// On load of the page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Tracabilite_Load(object sender, EventArgs e) {
             SetupDataGrid();
             // Loads the lots with no filters at the pages first load
@@ -45,6 +50,10 @@ namespace Module_2___Gestion_flexible_du_chariot {
                         break;
 
                     case 3:
+                        status = "En attente";
+                        break;
+
+                    case 4:
                         status = "Ouvert";
                         break;
                 }

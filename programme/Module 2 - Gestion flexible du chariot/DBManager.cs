@@ -538,7 +538,7 @@ namespace Module_2___Gestion_flexible_du_chariot
             cmd.Parameters.AddWithValue("@Lot_Quantite", lot.Quantite);
             cmd.Parameters.AddWithValue("@Lot_QuantiteAtteinte", 0);
             cmd.Parameters.AddWithValue("@Rct_Numero", lot.RecetteID);
-            cmd.Parameters.AddWithValue("@Stu_ID", 2); // ID en attente
+            cmd.Parameters.AddWithValue("@Stu_ID", 3); // ID en attente
 
             cmd.Prepare();
             cmd.ExecuteNonQuery();
@@ -575,16 +575,17 @@ namespace Module_2___Gestion_flexible_du_chariot
             bool isInUse = false;
             OpenConnection();
 
-            string SQLString = "SELECT Count(*) FROM `lot` WHERE Stu_ID != 1 AND Lot_Numero = @Lot_Numero";
+            string SQLString = "SELECT Count(*) FROM `lot` WHERE Stu_ID = 1 AND Rct_Numero = @Rct_Numero OR Stu_ID = 2 AND Rct_Numero = @Rct_Numero";
             MySqlCommand cmd = Conn.CreateCommand();
             cmd.CommandText = SQLString;
 
-            cmd.Parameters.AddWithValue("@Lot_Numero", recette.ID);
+            cmd.Parameters.AddWithValue("@Rct_Numero", recette.ID);
 
             cmd.Prepare();
             MySqlDataReader reader = cmd.ExecuteReader();
             
             if(reader.Read()) {
+                string test = reader["Count(*)"].ToString();
                 isInUse = reader["Count(*)"].ToString() != "0";
             }
 
