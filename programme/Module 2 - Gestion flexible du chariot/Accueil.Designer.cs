@@ -1,4 +1,4 @@
-﻿namespace Module_2___Gestion_flexible_du_chariot
+namespace Module_2___Gestion_flexible_du_chariot
 {
     partial class Accueil
     {
@@ -39,7 +39,7 @@
             // 
             this.AllerTracabiliteLots.CausesValidation = false;
             this.AllerTracabiliteLots.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.AllerTracabiliteLots.Location = new System.Drawing.Point(351, 305);
+            this.AllerTracabiliteLots.Location = new System.Drawing.Point(123, 243);
             this.AllerTracabiliteLots.Margin = new System.Windows.Forms.Padding(2);
             this.AllerTracabiliteLots.Name = "AllerTracabiliteLots";
             this.AllerTracabiliteLots.Size = new System.Drawing.Size(280, 42);
@@ -51,7 +51,7 @@
             // AllerEditionLots
             // 
             this.AllerEditionLots.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.AllerEditionLots.Location = new System.Drawing.Point(351, 229);
+            this.AllerEditionLots.Location = new System.Drawing.Point(123, 167);
             this.AllerEditionLots.Margin = new System.Windows.Forms.Padding(2);
             this.AllerEditionLots.Name = "AllerEditionLots";
             this.AllerEditionLots.Size = new System.Drawing.Size(280, 42);
@@ -63,7 +63,7 @@
             // AllerEditionRecettes
             // 
             this.AllerEditionRecettes.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.AllerEditionRecettes.Location = new System.Drawing.Point(351, 154);
+            this.AllerEditionRecettes.Location = new System.Drawing.Point(123, 92);
             this.AllerEditionRecettes.Margin = new System.Windows.Forms.Padding(2);
             this.AllerEditionRecettes.Name = "AllerEditionRecettes";
             this.AllerEditionRecettes.Size = new System.Drawing.Size(280, 42);
@@ -76,11 +76,11 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(161, 52);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F, System.Drawing.FontStyle.Bold);
+            this.label1.Location = new System.Drawing.Point(11, 9);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(686, 44);
+            this.label1.Size = new System.Drawing.Size(547, 36);
             this.label1.TabIndex = 3;
             this.label1.Text = "Module 2 - Gestion flexible du chariot";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -88,7 +88,7 @@
             // AllerEvenements
             // 
             this.AllerEvenements.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.AllerEvenements.Location = new System.Drawing.Point(351, 383);
+            this.AllerEvenements.Location = new System.Drawing.Point(123, 321);
             this.AllerEvenements.Margin = new System.Windows.Forms.Padding(2);
             this.AllerEvenements.Name = "AllerEvenements";
             this.AllerEvenements.Size = new System.Drawing.Size(280, 42);
@@ -101,7 +101,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1001, 495);
+            this.ClientSize = new System.Drawing.Size(564, 420);
             this.Controls.Add(this.AllerEvenements);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.AllerEditionRecettes);

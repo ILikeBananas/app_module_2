@@ -118,7 +118,7 @@
             // 
             // CreateButton
             // 
-            this.CreateButton.Location = new System.Drawing.Point(5, 168);
+            this.CreateButton.Location = new System.Drawing.Point(5, 184);
             this.CreateButton.Name = "CreateButton";
             this.CreateButton.Size = new System.Drawing.Size(97, 25);
             this.CreateButton.TabIndex = 11;
@@ -139,7 +139,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(317, 324);
+            this.ClientSize = new System.Drawing.Size(299, 270);
             this.Controls.Add(this.ErrorMessage);
             this.Controls.Add(this.CreateButton);
             this.Controls.Add(this.LabelRecetteBox);
