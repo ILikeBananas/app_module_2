@@ -40,7 +40,7 @@ namespace Module_2___Gestion_flexible_du_chariot
 
         private void AllerEvenements_Click(object sender, EventArgs e)
         {
-
+            GoToForm(new Evenements());
         }
 
         // Changes the view to the new form

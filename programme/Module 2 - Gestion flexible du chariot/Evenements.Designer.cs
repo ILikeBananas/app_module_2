@@ -29,15 +29,15 @@
             this.label2 = new System.Windows.Forms.Label();
             this.timePickerFin = new System.Windows.Forms.DateTimePicker();
             this.timePickerDebut = new System.Windows.Forms.DateTimePicker();
-            this.lotDataGrid = new System.Windows.Forms.DataGridView();
+            this.EventGrid = new System.Windows.Forms.DataGridView();
             this.update = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.useLotFilters = new System.Windows.Forms.CheckBox();
-            this.comboLots = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.comboLots = new System.Windows.Forms.ComboBox();
+            this.useLotFilters = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lotDataGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EventGrid)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -97,13 +97,13 @@
             this.timePickerDebut.Size = new System.Drawing.Size(171, 20);
             this.timePickerDebut.TabIndex = 6;
             // 
-            // lotDataGrid
+            // EventGrid
             // 
-            this.lotDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.lotDataGrid.Location = new System.Drawing.Point(331, 54);
-            this.lotDataGrid.Name = "lotDataGrid";
-            this.lotDataGrid.Size = new System.Drawing.Size(527, 356);
-            this.lotDataGrid.TabIndex = 12;
+            this.EventGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.EventGrid.Location = new System.Drawing.Point(331, 54);
+            this.EventGrid.Name = "EventGrid";
+            this.EventGrid.Size = new System.Drawing.Size(500, 354);
+            this.EventGrid.TabIndex = 12;
             // 
             // update
             // 
@@ -113,6 +113,7 @@
             this.update.TabIndex = 14;
             this.update.Text = "Actualiser";
             this.update.UseVisualStyleBackColor = true;
+            this.update.Click += new System.EventHandler(this.update_Click);
             // 
             // label1
             // 
@@ -136,6 +137,23 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Filtre sur les lots";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(11, 47);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(58, 13);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Nom du lot";
+            // 
+            // comboLots
+            // 
+            this.comboLots.FormattingEnabled = true;
+            this.comboLots.Location = new System.Drawing.Point(75, 44);
+            this.comboLots.Name = "comboLots";
+            this.comboLots.Size = new System.Drawing.Size(139, 21);
+            this.comboLots.TabIndex = 1;
+            // 
             // useLotFilters
             // 
             this.useLotFilters.AutoSize = true;
@@ -146,38 +164,22 @@
             this.useLotFilters.Text = "Utiliser le filtre sur les lots";
             this.useLotFilters.UseVisualStyleBackColor = true;
             // 
-            // comboLots
-            // 
-            this.comboLots.FormattingEnabled = true;
-            this.comboLots.Location = new System.Drawing.Point(75, 44);
-            this.comboLots.Name = "comboLots";
-            this.comboLots.Size = new System.Drawing.Size(139, 21);
-            this.comboLots.TabIndex = 1;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(11, 47);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(58, 13);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Nom du lot";
-            // 
-            // Evenement
+            // Evenements
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(934, 553);
+            this.ClientSize = new System.Drawing.Size(839, 416);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.update);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.lotDataGrid);
-            this.Name = "Evenement";
+            this.Controls.Add(this.EventGrid);
+            this.Name = "Evenements";
             this.Text = "Evenement";
+            this.Load += new System.EventHandler(this.Evenements_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lotDataGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EventGrid)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
@@ -193,7 +195,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker timePickerFin;
         private System.Windows.Forms.DateTimePicker timePickerDebut;
-        private System.Windows.Forms.DataGridView lotDataGrid;
+        private System.Windows.Forms.DataGridView EventGrid;
         private System.Windows.Forms.Button update;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox2;

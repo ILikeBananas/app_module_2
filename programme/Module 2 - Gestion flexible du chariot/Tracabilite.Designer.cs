@@ -35,10 +35,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.useDateFilters = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.radioDateCreation = new System.Windows.Forms.RadioButton();
             this.radioDateButoir = new System.Windows.Forms.RadioButton();
+            this.radioDateCreation = new System.Windows.Forms.RadioButton();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.update = new System.Windows.Forms.Button();
+            this.radioOuvert = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.lotDataGrid)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -162,30 +163,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtre sur les dates";
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.radioProduction);
-            this.groupBox2.Controls.Add(this.radioTermine);
-            this.groupBox2.Controls.Add(this.radioTous);
-            this.groupBox2.Controls.Add(this.radioAttente);
-            this.groupBox2.Location = new System.Drawing.Point(10, 195);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(310, 113);
-            this.groupBox2.TabIndex = 12;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Filtre sur l\'état";
-            // 
-            // radioDateCreation
-            // 
-            this.radioDateCreation.AutoSize = true;
-            this.radioDateCreation.Location = new System.Drawing.Point(6, 42);
-            this.radioDateCreation.Name = "radioDateCreation";
-            this.radioDateCreation.Size = new System.Drawing.Size(89, 17);
-            this.radioDateCreation.TabIndex = 11;
-            this.radioDateCreation.TabStop = true;
-            this.radioDateCreation.Text = "Date création";
-            this.radioDateCreation.UseVisualStyleBackColor = true;
-            // 
             // radioDateButoir
             // 
             this.radioDateButoir.AutoSize = true;
@@ -198,15 +175,50 @@
             this.radioDateButoir.Text = "Date butoir";
             this.radioDateButoir.UseVisualStyleBackColor = true;
             // 
+            // radioDateCreation
+            // 
+            this.radioDateCreation.AutoSize = true;
+            this.radioDateCreation.Location = new System.Drawing.Point(6, 42);
+            this.radioDateCreation.Name = "radioDateCreation";
+            this.radioDateCreation.Size = new System.Drawing.Size(89, 17);
+            this.radioDateCreation.TabIndex = 11;
+            this.radioDateCreation.TabStop = true;
+            this.radioDateCreation.Text = "Date création";
+            this.radioDateCreation.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.radioOuvert);
+            this.groupBox2.Controls.Add(this.radioProduction);
+            this.groupBox2.Controls.Add(this.radioTermine);
+            this.groupBox2.Controls.Add(this.radioTous);
+            this.groupBox2.Controls.Add(this.radioAttente);
+            this.groupBox2.Location = new System.Drawing.Point(10, 195);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(310, 140);
+            this.groupBox2.TabIndex = 12;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Filtre sur l\'état";
+            // 
             // update
             // 
-            this.update.Location = new System.Drawing.Point(10, 314);
+            this.update.Location = new System.Drawing.Point(12, 357);
             this.update.Name = "update";
             this.update.Size = new System.Drawing.Size(89, 20);
             this.update.TabIndex = 13;
             this.update.Text = "Actualiser";
             this.update.UseVisualStyleBackColor = true;
             this.update.Click += new System.EventHandler(this.update_Click);
+            // 
+            // radioOuvert
+            // 
+            this.radioOuvert.AutoSize = true;
+            this.radioOuvert.Location = new System.Drawing.Point(16, 111);
+            this.radioOuvert.Name = "radioOuvert";
+            this.radioOuvert.Size = new System.Drawing.Size(57, 17);
+            this.radioOuvert.TabIndex = 6;
+            this.radioOuvert.Text = "Ouvert";
+            this.radioOuvert.UseVisualStyleBackColor = true;
             // 
             // Tracabilite
             // 
@@ -249,5 +261,6 @@
         private System.Windows.Forms.RadioButton radioDateButoir;
         private System.Windows.Forms.RadioButton radioDateCreation;
         private System.Windows.Forms.Button update;
+        private System.Windows.Forms.RadioButton radioOuvert;
     }
 }

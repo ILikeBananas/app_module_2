@@ -132,6 +132,9 @@ namespace Module_2___Gestion_flexible_du_chariot {
             } else if(radioAttente.Checked)
             {
                 lotFilterParameters.StateFilter = StateFilterOptions.waiting;
+            } else if(radioOuvert.Checked)
+            {
+                lotFilterParameters.StateFilter = StateFilterOptions.open;
             }
 
             UpdateDataGrid(lotFilterParameters);
