@@ -130,7 +130,7 @@ namespace Module_2___Gestion_flexible_du_chariot
             string connectionString = $"server={Host};" +
                                       $"database={DatabaseName};" +
                                       $"Uid={UserName};" +
-                                      $"Pws={Password};";
+                                      $"Password={Password};";
 
             Conn = new MySqlConnection(connectionString);
 
