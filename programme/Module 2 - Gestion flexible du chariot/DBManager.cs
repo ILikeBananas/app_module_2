@@ -623,7 +623,9 @@ namespace Module_2___Gestion_flexible_du_chariot
             bool isInUse = false;
             OpenConnection();
 
-            string SQLString = "SELECT Count(*) FROM `lot` WHERE Stu_ID = 1 AND Rct_Numero = @Rct_Numero OR Stu_ID = 2 AND Rct_Numero = @Rct_Numero";
+            string SQLString =  "SELECT Count(*) FROM `lot` WHERE Stu_ID = 1 AND Rct_Numero = @Rct_Numero " +
+                                "OR Stu_ID = 2 AND Rct_Numero = @Rct_Numero" +
+                                "OR Stu_ID = 3 AND Rct_Numero = @Rct_Numero";
             MySqlCommand cmd = Conn.CreateCommand();
             cmd.CommandText = SQLString;
 
