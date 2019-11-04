@@ -584,7 +584,7 @@ namespace Module_2___Gestion_flexible_du_chariot
             cmd.Parameters.AddWithValue("@Lot_Quantite", lot.Quantite);
             cmd.Parameters.AddWithValue("@Lot_QuantiteAtteinte", 0);
             cmd.Parameters.AddWithValue("@Rct_Numero", lot.RecetteID);
-            cmd.Parameters.AddWithValue("@Stu_ID", 3); // ID en attente
+            cmd.Parameters.AddWithValue("@Stu_ID", 4); // ID ouvert
 
             cmd.Prepare();
             cmd.ExecuteNonQuery();
