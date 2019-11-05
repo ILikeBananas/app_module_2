@@ -10,11 +10,18 @@ using System.Windows.Forms;
 
 namespace Module_2___Gestion_flexible_du_chariot {
     public partial class Tracabilite : Form {
-        public Tracabilite() {
+        public Tracabilite()
+        {
             InitializeComponent();
         }
 
-        private void Tracabilite_Load(object sender, EventArgs e) {
+        /// <summary>
+        /// On load of the page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Tracabilite_Load(object sender, EventArgs e)
+        {
             SetupDataGrid();
             // Loads the lots with no filters at the pages first load
             LotFilterParameters lotFilterParameters = new LotFilterParameters();
@@ -27,12 +34,14 @@ namespace Module_2___Gestion_flexible_du_chariot {
         /// Updates the datagrid with the given filters 
         /// </summary>
         /// <param name="filterParameters"></param>
-        private void UpdateDataGrid(LotFilterParameters filterParameters) {
+        private void UpdateDataGrid(LotFilterParameters filterParameters)
+        {
             List<Lot> lots = Program.manager.GetFilteredLots(filterParameters);
             lotDataGrid.Rows.Clear();
 
             Recette recette = new Recette();
-            for(int i = 0; i < lots.Count(); i++) {
+            for(int i = 0; i < lots.Count(); i++)
+            {
                 recette = Program.manager.GetRecetteByID(lots[i].RecetteID);
                 string status = "";
                 switch(lots[i].StatusID) {
@@ -45,6 +54,10 @@ namespace Module_2___Gestion_flexible_du_chariot {
                         break;
 
                     case 3:
+                        status = "En attente";
+                        break;
+
+                    case 4:
                         status = "Ouvert";
                         break;
                 }
@@ -58,7 +71,8 @@ namespace Module_2___Gestion_flexible_du_chariot {
         /// <summary>
         /// Sets up the columns, columnn names and width for the data grid
         /// </summary>
-        public void SetupDataGrid() {
+        public void SetupDataGrid()
+        {
             lotDataGrid.ColumnCount = 7;
             lotDataGrid.Name = "Affichage lots";
 
@@ -88,7 +102,8 @@ namespace Module_2___Gestion_flexible_du_chariot {
 
         }
 
-        private void update_Click(object sender, EventArgs e) {
+        private void update_Click(object sender, EventArgs e)
+        {
             LotFilterParameters lotFilterParameters = new LotFilterParameters();
 
             // Date filter
@@ -96,21 +111,30 @@ namespace Module_2___Gestion_flexible_du_chariot {
             lotFilterParameters.Start = timePickerDebut.Value;
             lotFilterParameters.End = timePickerFin.Value;
 
-            if(radioDateButoir.Checked) {
+            if(radioDateButoir.Checked)
+            {
                 lotFilterParameters.DateFilterOptions = DateFilterOptions.dateButoir;
-            } else {
+            } else
+            {
                 lotFilterParameters.DateFilterOptions = DateFilterOptions.dateCreation;
             }
 
             // State filter
-            if(radioTermine.Checked) {
+            if(radioTermine.Checked)
+            {
                 lotFilterParameters.StateFilter = StateFilterOptions.finished;
-            } else if(radioProduction.Checked){
+            } else if(radioProduction.Checked)
+            {
                 lotFilterParameters.StateFilter = StateFilterOptions.inProduction;
-            } else if(radioTous.Checked) {
+            } else if(radioTous.Checked)
+            {
                 lotFilterParameters.StateFilter = StateFilterOptions.all;
-            } else if(radioAttente.Checked) {
+            } else if(radioAttente.Checked)
+            {
                 lotFilterParameters.StateFilter = StateFilterOptions.waiting;
+            } else if(radioOuvert.Checked)
+            {
+                lotFilterParameters.StateFilter = StateFilterOptions.open;
             }
 
             UpdateDataGrid(lotFilterParameters);

@@ -26,8 +26,9 @@ namespace Module_2___Gestion_flexible_du_chariot
     public struct Evenement
     {
         public int ID;
-        public string Nom;
+        public string Message;
         public DateTime DateTime;
+        public int LotID;
     }
 
     public struct Operation
@@ -57,7 +58,8 @@ namespace Module_2___Gestion_flexible_du_chariot
         all,
         finished,
         waiting,
-        inProduction
+        inProduction,
+        open
     }
 
     public enum DateFilterOptions {
@@ -70,6 +72,14 @@ namespace Module_2___Gestion_flexible_du_chariot
         public DateTime End;
         public DateFilterOptions DateFilterOptions;
         public StateFilterOptions StateFilter;
+    }
+
+    public struct EventFilterParameters {
+        public bool UseDateFilter;
+        public DateTime Start;
+        public DateTime End;
+        public bool UseLotFilter;
+        public int LotID;
     }
 
 
@@ -120,7 +130,7 @@ namespace Module_2___Gestion_flexible_du_chariot
             string connectionString = $"server={Host};" +
                                       $"database={DatabaseName};" +
                                       $"Uid={UserName};" +
-                                      $"Pws={Password};";
+                                      $"Password={Password};";
 
             Conn = new MySqlConnection(connectionString);
 
@@ -185,7 +195,9 @@ namespace Module_2___Gestion_flexible_du_chariot
             Evenement evenement = new Evenement();
 
             evenement.ID = int.Parse(reader["Eve_ID"].ToString());
-            evenement.Nom = reader["Eve_Message"].ToString();
+            evenement.Message = reader["Eve_Message"].ToString();
+            evenement.DateTime = DateTime.Parse(reader["Eve_Date"].ToString());
+            evenement.LotID = int.Parse(reader["Lot_Numero"].ToString());
 
             CloseConnection();
 
@@ -443,6 +455,40 @@ namespace Module_2___Gestion_flexible_du_chariot
         }
 
         /// <summary>
+        /// Gets all the lots from the database
+        /// </summary>
+        /// <returns>List with all the lots from the database</returns>
+        public List<Lot> GetAllLots()
+        {
+            string SQLString = "SELECT * FROM lot";
+
+            OpenConnection();
+            MySqlCommand cmd = Conn.CreateCommand();
+            cmd.CommandText = SQLString;
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            Lot lot = new Lot();
+            List<Lot> lots = new List<Lot>();
+
+            while(reader.Read())
+            {
+                lot.ID = int.Parse(reader["Lot_Numero"].ToString());
+                lot.Nom = reader["Lot_Nom"].ToString();
+                lot.DateCreation = DateTime.Parse(reader["Lot_DateCreation"].ToString());
+                lot.DateButoir = DateTime.Parse(reader["Lot_DateButoir"].ToString());
+                lot.Quantite = int.Parse(reader["Lot_Quantite"].ToString());
+                lot.QuantiteAtteinte = int.Parse(reader["Lot_QuantiteAtteinte"].ToString());
+                lot.RecetteID = int.Parse(reader["Rct_Numero"].ToString());
+                lot.StatusID = int.Parse(reader["Stu_ID"].ToString());
+
+                lots.Add(lot);
+            }
+
+            return lots;
+        }
+
+        /// <summary>
         /// Update in the database the operation
         /// </summary>
         /// <param name="operation">Operation to update</param>
@@ -538,7 +584,7 @@ namespace Module_2___Gestion_flexible_du_chariot
             cmd.Parameters.AddWithValue("@Lot_Quantite", lot.Quantite);
             cmd.Parameters.AddWithValue("@Lot_QuantiteAtteinte", 0);
             cmd.Parameters.AddWithValue("@Rct_Numero", lot.RecetteID);
-            cmd.Parameters.AddWithValue("@Stu_ID", 2); // ID en attente
+            cmd.Parameters.AddWithValue("@Stu_ID", 4); // ID ouvert
 
             cmd.Prepare();
             cmd.ExecuteNonQuery();
@@ -550,7 +596,8 @@ namespace Module_2___Gestion_flexible_du_chariot
         /// Creates a new recette in the database
         /// </summary>
         /// <param name="recette">Recette to add</param>
-        public void CreateRecette(Recette recette) {
+        public void CreateRecette(Recette recette)
+        {
             OpenConnection();
 
             // Preparing the statement
@@ -571,20 +618,24 @@ namespace Module_2___Gestion_flexible_du_chariot
         /// </summary>
         /// <param name="recette"></param>
         /// <returns></returns>
-        public bool IsRecetteInUse(Recette recette) {
+        public bool IsRecetteInUse(Recette recette)
+        {
             bool isInUse = false;
             OpenConnection();
 
-            string SQLString = "SELECT Count(*) FROM `lot` WHERE Stu_ID != 1 AND Lot_Numero = @Lot_Numero";
+            string SQLString =  "SELECT Count(*) FROM `lot` WHERE Stu_ID = 1 AND Rct_Numero = @Rct_Numero " +
+                                "OR Stu_ID = 2 AND Rct_Numero = @Rct_Numero" +
+                                "OR Stu_ID = 3 AND Rct_Numero = @Rct_Numero";
             MySqlCommand cmd = Conn.CreateCommand();
             cmd.CommandText = SQLString;
 
-            cmd.Parameters.AddWithValue("@Lot_Numero", recette.ID);
+            cmd.Parameters.AddWithValue("@Rct_Numero", recette.ID);
 
             cmd.Prepare();
             MySqlDataReader reader = cmd.ExecuteReader();
             
             if(reader.Read()) {
+                string test = reader["Count(*)"].ToString();
                 isInUse = reader["Count(*)"].ToString() != "0";
             }
 
@@ -595,7 +646,8 @@ namespace Module_2___Gestion_flexible_du_chariot
         /// Get all lots with the given filters
         /// </summary>
         /// <param name="filterParameters">(see struct) all parameters to apply on the query</param>
-        public List<Lot> GetFilteredLots(LotFilterParameters filterParameters) {
+        public List<Lot> GetFilteredLots(LotFilterParameters filterParameters)
+        {
             OpenConnection();
 
             string SQLString = "SELECT * FROM lot WHERE "; // String used to compose the SQL command
@@ -605,12 +657,14 @@ namespace Module_2___Gestion_flexible_du_chariot
             // If date filters are used, add them to the command
             if(filterParameters.UseDateFilter) {
                 string column = "";
-                if(filterParameters.DateFilterOptions == DateFilterOptions.dateButoir) {
+                if(filterParameters.DateFilterOptions == DateFilterOptions.dateButoir)
+                {
                     column = "Lot_DateButoir";
-                } else {
+                } else
+                {
                     column = "Lot_DateCreation";
                 }
-                SQLString += column + " > @DateStart AND " + column + " < @DateEnd AND ";
+                SQLString += column + " > STR_TO_DATE(@DateStart, '%Y-%m-%d %H:%i:%s') AND " + column + " < STR_TO_DATE(@DateEnd, '%Y-%m-%d %H:%i:%s') AND ";
 
                 dateStart = filterParameters.Start.ToString("yyyy-MM-dd HH:mm:ss");
                 dateEnd = filterParameters.End.ToString("yyyy-MM-dd HH:mm:ss");
@@ -633,23 +687,31 @@ namespace Module_2___Gestion_flexible_du_chariot
                 case StateFilterOptions.waiting:
                     SQLString += "Stu_ID = 3";
                     break;
+
+                case StateFilterOptions.open:
+                    SQLString += "Stu_ID = 4";
+                    break;
+
             }
 
             MySqlCommand cmd = Conn.CreateCommand();
             cmd.CommandText = SQLString;
-
+            Debug.WriteLine(SQLString);
+            Debug.WriteLine(dateStart + " " + dateEnd);
             // If date filters are used, add the parameters with values
-            if(filterParameters.UseDateFilter) {
+            if(filterParameters.UseDateFilter)
+            {
                 cmd.Parameters.AddWithValue("@DateStart", dateStart);
                 cmd.Parameters.AddWithValue("@DateEnd", dateEnd);
             }
-
+            Debug.WriteLine(cmd.CommandText);
             cmd.Prepare();
 
             MySqlDataReader reader = cmd.ExecuteReader();
             List<Lot> lots = new List<Lot>();
             Lot lot = new Lot();
-            while(reader.Read()) {
+            while(reader.Read())
+            {
                 lot.ID = int.Parse(reader["Lot_Numero"].ToString());
                 lot.Nom = reader["Lot_Nom"].ToString();
                 lot.DateCreation = DateTime.Parse(reader["Lot_DateCreation"].ToString());
@@ -664,6 +726,67 @@ namespace Module_2___Gestion_flexible_du_chariot
 
             CloseConnection();
             return lots;
+        }
+
+        
+
+    public List<Evenement> GetFilteredEvenements(EventFilterParameters filterParameters)
+        {
+            Debug.WriteLine(filterParameters.LotID);
+            OpenConnection();
+
+            string SQLString = "SELECT * FROM evenement WHERE ";
+
+            string dateStart = "";
+            string dateEnd = "";
+            // If the user wants the date filters, add them to the request
+            if (filterParameters.UseDateFilter)
+            {
+                SQLString += " Eve_Date > STR_TO_DATE(@DateStart, '%Y-%m-%d %H:%i:%s') AND Eve_Date < STR_TO_DATE(@DateEnd, '%Y-%m-%d %H:%i:%s') AND";
+                dateStart = filterParameters.Start.ToString("yyyy - MM - dd HH: mm:ss");
+                dateEnd = filterParameters.End.ToString("yyyy - MM - dd HH: mm:ss");
+            }
+
+            // If the users wants to use lot filters, add them to the request
+            if(filterParameters.UseLotFilter)
+            {
+                SQLString += " Lot_Numero = @LotNumero AND";
+            }
+
+            SQLString += " 1 = 1";
+
+            MySqlCommand cmd = Conn.CreateCommand();
+            cmd.CommandText = SQLString;
+
+            if(filterParameters.UseDateFilter)
+            {
+                cmd.Parameters.AddWithValue("@DateStart", dateStart);
+                cmd.Parameters.AddWithValue("@DateEnd", dateEnd);
+            }
+
+            if(filterParameters.UseLotFilter)
+            {
+                cmd.Parameters.AddWithValue("@LotNumero", filterParameters.LotID);
+            }
+
+            cmd.Prepare();
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+            List<Evenement> evenements = new List<Evenement>();
+            Evenement evenement = new Evenement();
+
+            while (reader.Read())
+            {
+                evenement.ID = int.Parse(reader["Lot_Numero"].ToString());
+                evenement.Message = reader["Eve_Message"].ToString();
+                evenement.DateTime = DateTime.Parse(reader["Eve_Date"].ToString());
+                evenement.LotID = int.Parse(reader["Lot_Numero"].ToString());
+                
+                evenements.Add(evenement);
+            }
+
+            CloseConnection();
+            return evenements;
         }
 
     }

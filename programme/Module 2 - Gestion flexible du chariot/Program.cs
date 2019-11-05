@@ -20,10 +20,10 @@ namespace Module_2___Gestion_flexible_du_chariot
         static void Main()
         {
             // Database connection infos
-            string host = "localhost";
+            string host = "172.16.100.9";
             string databaseName = "johrbil_chariot";
-            string userName = "root";
-            string password = "";
+            string userName = "johrbil";
+            string password = "Admlocal1";
 
             // Creates the manager
             manager = new DBManager(host, databaseName, userName, password);

@@ -47,9 +47,9 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(4, 5);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(153, 24);
+            this.label1.Size = new System.Drawing.Size(149, 24);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Crétation des lots";
+            this.label1.Text = "Création des lots";
             // 
             // LotName
             // 
@@ -118,7 +118,7 @@
             // 
             // CreateButton
             // 
-            this.CreateButton.Location = new System.Drawing.Point(5, 168);
+            this.CreateButton.Location = new System.Drawing.Point(5, 184);
             this.CreateButton.Name = "CreateButton";
             this.CreateButton.Size = new System.Drawing.Size(97, 25);
             this.CreateButton.TabIndex = 11;
@@ -139,7 +139,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(317, 324);
+            this.ClientSize = new System.Drawing.Size(299, 270);
             this.Controls.Add(this.ErrorMessage);
             this.Controls.Add(this.CreateButton);
             this.Controls.Add(this.LabelRecetteBox);

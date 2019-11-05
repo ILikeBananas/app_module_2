@@ -154,7 +154,8 @@ namespace Module_2___Gestion_flexible_du_chariot
                 }
                 
                 // When saving is needed
-                if(save) {
+                if(save)
+                {
                     SaveChanges();
                 }
 
@@ -345,7 +346,8 @@ namespace Module_2___Gestion_flexible_du_chariot
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void NewRecette_Click(object sender, EventArgs e) {
+        private void NewRecette_Click(object sender, EventArgs e)
+        {
 
             // Create a new recette to use it later
             int newIndex = ListRecette.Last().ID + 1;

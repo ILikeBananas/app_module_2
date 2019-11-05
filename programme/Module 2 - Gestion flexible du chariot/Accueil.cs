@@ -40,12 +40,13 @@ namespace Module_2___Gestion_flexible_du_chariot
 
         private void AllerEvenements_Click(object sender, EventArgs e)
         {
-
+            GoToForm(new Evenements());
         }
 
         // Changes the view to the new form
         // This function is used to not repeat the same code for every button
-        private void GoToForm(Form frm) {
+        private void GoToForm(Form frm)
+        {
             frm.Location = this.Location;
             frm.StartPosition = FormStartPosition.Manual;
             frm.FormClosing += delegate { this.Show(); };
