@@ -365,5 +365,36 @@ namespace Module_2___Gestion_flexible_du_chariot
 
 
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DeleteRecette_Click(object sender, EventArgs e)
+        {
+            if(dataGridView1.SelectedRows.Count == 1)
+            {
+                int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
+                Recette recette = ListRecette[selectedRowIndex];
+                string message = string.Format("Voulez-vous supprimer la recette \"{0}\"?", recette.Nom);
+                DialogResult result = MessageBox.Show(message, "Suppression recette", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes){
+                    if(Program.manager.IsRecetteInUse(recette))
+                    {
+                        MessageBox.Show("Cette recette est en utilisation et ne peux pas être supprimée.", "Recette déjà utilisé", MessageBoxButtons.OK);
+                    }
+                }
+                {
+
+                }
+
+
+
+            } else
+            {
+                MessageBox.Show("Veuillez séléctionner uniquement une cellule dans la ")
+            }
+        }
     }
 }

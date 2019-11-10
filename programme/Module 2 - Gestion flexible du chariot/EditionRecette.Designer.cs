@@ -33,6 +33,7 @@
             this.Charger = new System.Windows.Forms.Button();
             this.Sauvegarder = new System.Windows.Forms.Button();
             this.NewRecette = new System.Windows.Forms.Button();
+            this.DeleteRecette = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
@@ -88,11 +89,22 @@
             this.NewRecette.UseVisualStyleBackColor = true;
             this.NewRecette.Click += new System.EventHandler(this.NewRecette_Click);
             // 
+            // DeleteRecette
+            // 
+            this.DeleteRecette.Location = new System.Drawing.Point(297, 414);
+            this.DeleteRecette.Name = "DeleteRecette";
+            this.DeleteRecette.Size = new System.Drawing.Size(104, 24);
+            this.DeleteRecette.TabIndex = 5;
+            this.DeleteRecette.Text = "Supprimer Recette";
+            this.DeleteRecette.UseVisualStyleBackColor = true;
+            this.DeleteRecette.Click += new System.EventHandler(this.DeleteRecette_Click);
+            // 
             // EditionRecette
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.DeleteRecette);
             this.Controls.Add(this.NewRecette);
             this.Controls.Add(this.Sauvegarder);
             this.Controls.Add(this.Charger);
@@ -114,5 +126,6 @@
         private System.Windows.Forms.Button Charger;
         private System.Windows.Forms.Button Sauvegarder;
         private System.Windows.Forms.Button NewRecette;
+        private System.Windows.Forms.Button DeleteRecette;
     }
 }
