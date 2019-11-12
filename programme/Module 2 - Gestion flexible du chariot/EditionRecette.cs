@@ -64,6 +64,7 @@ namespace Module_2___Gestion_flexible_du_chariot
             ListRecette = Program.manager.GetAllRecette();
             Recette[] recettes = ListRecette.ToArray();
 
+            dataGridView1.Rows.Clear();
             for (int i = 0; i < recettes.Length; i++)
             {
                 string[] row = { recettes[i].ID.ToString(), recettes[i].Nom };
@@ -234,9 +235,11 @@ namespace Module_2___Gestion_flexible_du_chariot
                             if (NewValues[index].RowIndex == e.RowIndex)
                             {
                                 isNewValue = false;
+                            } else
+                            {
+                                index++;
                             }
-                            index++;
-                        } while (isNewValue);
+                        } while (isNewValue && index < NewValues.Count);
                     }
                     // If it's a new value, it has no recette id yet, change it to the active recette
                     if (isNewValue)
@@ -245,7 +248,8 @@ namespace Module_2___Gestion_flexible_du_chariot
                     }
                     else
                     {
-                        changedValue = ChangedValues[NewValues[index - 1].ChangedValueIndex];
+                        //changedValue = 
+                        changedValue = ChangedValues[NewValues[index].ChangedValueIndex]; // TEST
                     }
                 }
 
@@ -288,7 +292,7 @@ namespace Module_2___Gestion_flexible_du_chariot
                 NewValues.Add(newValue);
             } else
             {
-                ChangedValues[NewValues[index - 1].ChangedValueIndex] = changedValue;
+                ChangedValues[NewValues[index].ChangedValueIndex] = changedValue;
             }
             
         }
@@ -309,7 +313,7 @@ namespace Module_2___Gestion_flexible_du_chariot
                 for (int row = 0; row < ListRecette.Count; row++)
                 {
                     dgvRow = dataGridView1.Rows[row];
-                    if (int.Parse(dgvRow.Cells[0].Value.ToString()) == ActiveRecette && dgvRow.Cells[1].Value.ToString() != ListRecette[ActiveRecette - 1].Nom)
+                    if (int.Parse(dgvRow.Cells[0].Value.ToString()) == ActiveRecette && dgvRow.Cells[1].Value.ToString() != ListRecette[row].Nom)
                     {
                         Debug.WriteLine("Updating recette name");
                         Program.manager.UpdateRecetteName(ListRecette[ActiveRecette - 1], dgvRow.Cells[1].Value.ToString());
@@ -350,18 +354,17 @@ namespace Module_2___Gestion_flexible_du_chariot
         {
 
             // Create a new recette to use it later
-            int newIndex = ListRecette.Last().ID + 1;
             Recette recette = new Recette();
-            recette.ID = newIndex;
             recette.Nom = "Nouvelle recette";
-            dataGridView1.Rows.Add(recette.ID, recette.Nom);
 
             // Adds the recette to the database and the recette list
             Program.manager.CreateRecette(recette);
-            ListRecette.Add(recette);
 
-            // Directly use the new recette as the active one
-            ChangeActiveRecette(recette.ID);
+            // Realoading the datagrid
+            SetupDataGridView();
+
+            // Changes the active recette to this one
+            ChangeActiveRecette(ListRecette.Last().ID);
 
 
         }
@@ -373,9 +376,9 @@ namespace Module_2___Gestion_flexible_du_chariot
         /// <param name="e"></param>
         private void DeleteRecette_Click(object sender, EventArgs e)
         {
-            if(dataGridView1.SelectedRows.Count == 1)
+            if(dataGridView1.SelectedCells.Count == 1)
             {
-                int selectedRowIndex = dataGridView1.SelectedRows[0].Index;
+                int selectedRowIndex = dataGridView1.SelectedCells[0].RowIndex;
                 Recette recette = ListRecette[selectedRowIndex];
                 string message = string.Format("Voulez-vous supprimer la recette \"{0}\"?", recette.Nom);
                 DialogResult result = MessageBox.Show(message, "Suppression recette", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -383,18 +386,17 @@ namespace Module_2___Gestion_flexible_du_chariot
                     if(Program.manager.IsRecetteInUse(recette))
                     {
                         MessageBox.Show("Cette recette est en utilisation et ne peux pas être supprimée.", "Recette déjà utilisé", MessageBoxButtons.OK);
+                    } else
+                    {
+                        Program.manager.DeleteRecette(recette);
                     }
                 }
-                {
-
-                }
-
-
-
             } else
             {
-                MessageBox.Show("Veuillez séléctionner uniquement une cellule dans la ")
+                MessageBox.Show("Veuillez séléctionner uniquement une cellule dans la liste des recettes");
             }
+
+            SetupDataGridView();
         }
     }
 }

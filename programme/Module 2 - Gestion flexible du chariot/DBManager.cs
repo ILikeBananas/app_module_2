@@ -729,8 +729,12 @@ namespace Module_2___Gestion_flexible_du_chariot
         }
 
         
-
-    public List<Evenement> GetFilteredEvenements(EventFilterParameters filterParameters)
+        /// <summary>
+        /// Returns all events after filtering them
+        /// </summary>
+        /// <param name="filterParameters"></param>
+        /// <returns></returns>
+        public List<Evenement> GetFilteredEvenements(EventFilterParameters filterParameters)
         {
             Debug.WriteLine(filterParameters.LotID);
             OpenConnection();
@@ -788,6 +792,45 @@ namespace Module_2___Gestion_flexible_du_chariot
             CloseConnection();
             return evenements;
         }
+
+        /// <summary>
+        /// Deletes the operation
+        /// </summary>
+        /// <param name="operation"></param>
+        public void DeleteOperation(Operation operation)
+        {
+            OpenConnection();
+            string SQLString = "DELETE FROM operation WHERE Opr_ID = @opr_id";
+            MySqlCommand cmd = Conn.CreateCommand();
+            cmd.CommandText = SQLString;
+            cmd.Parameters.AddWithValue("@Opr_ID", operation.ID);
+            cmd.ExecuteNonQuery();
+            CloseConnection();
+        }
+
+        /// <summary>
+        /// Deletes the recette with all its operations
+        /// </summary>
+        /// <param name="recette"></param>
+        public void DeleteRecette(Recette recette)
+        {
+            // First deleting all oeration of this recette
+            List<Operation> operations = GetAllOperByRecID(recette.ID);
+            for(int i = 0; i < operations.Count(); i++)
+            {
+                DeleteOperation(operations[i]);
+            }
+
+            // Deleting the recette
+            OpenConnection();
+            string SQLString = "DELETE FROM recette  WHERE Rct_Numero = @rct_numero";
+            MySqlCommand cmd = Conn.CreateCommand();
+            cmd.CommandText = SQLString;
+            cmd.Parameters.AddWithValue("@rct_numero", recette.ID);
+            cmd.ExecuteNonQuery();
+            CloseConnection();
+        }
+
 
     }
 }
